@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.www.funone">
 
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -11,10 +12,12 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         //Facebook Log IN Integration
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/test_facebook_app_id" />
+
 
         <activity
             android:name=".activities.MainActivity"
@@ -22,7 +25,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.LogInActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.SocialLoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -32,6 +35,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.SearchActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.SettingsActivity"></activity>
     </application>
 
