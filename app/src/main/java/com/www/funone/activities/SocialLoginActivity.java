@@ -1,17 +1,22 @@
 package com.www.funone.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.facebook.login.widget.LoginButton;
 import com.www.funone.R;
 
 public class SocialLoginActivity extends BaseActivity implements View.OnClickListener {
 
     public static final String FONT_LUCIDA = "lucida-grande-bold.ttf";
+
+    private LoginButton mFaceLogInButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,17 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getResString(R.string.log_in));
+    }
+
+    /**
+     * Initializes Button clicks
+     */
+    private void initButtons() {
+        findViewById(R.id.google_plus_log_in_button).setOnClickListener(this);
+        findViewById(R.id.rel_facebook_btn_wrapper).setOnClickListener(this);
+        findViewById(R.id.rel_terms_of_services).setOnClickListener(this);
+        findViewById(R.id.vk_login_btn).setOnClickListener(this);
+        mFaceLogInButton = (LoginButton) findViewById(R.id.facebook_login_button);
     }
 
     /**
@@ -59,26 +75,28 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
     }
 
     /**
-     * Initializes Button clicks
+     * Starts Main Activity after successful log in
      */
-    private void initButtons() {
-        findViewById(R.id.google_plus_log_in_button).setOnClickListener(this);
-        findViewById(R.id.rel_facebook_btn_wrapper).setOnClickListener(this);
-        findViewById(R.id.rel_terms_of_services).setOnClickListener(this);
-        findViewById(R.id.vk_login_btn).setOnClickListener(this);
+    private void startMainActivity() {
+        startActivity(new Intent(this, MainActivity.class));
     }
+
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rel_facebook_btn_wrapper:
-                findViewById(R.id.facebook_login_button).performClick();
+                startMainActivity();
                 break;
             case R.id.google_plus_log_in_button:
+                startMainActivity();
                 break;
             case R.id.vk_login_btn:
+                startMainActivity();
                 break;
             case R.id.rel_terms_of_services:
+                Toast.makeText(SocialLoginActivity.this, getResString(R.string.terms_privacy_policy)
+                        , Toast.LENGTH_SHORT).show();
                 break;
         }
     }
