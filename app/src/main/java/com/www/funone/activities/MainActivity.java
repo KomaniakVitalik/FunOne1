@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
+            startActivity(new Intent(this, AllCommentActivity.class));
             return true;
         }
 

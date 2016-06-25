@@ -5,6 +5,7 @@
     <color name="colorAccent">#FFF</color>
 
     <color name="yellow">#ffd740</color>
+    <color name="black">#000000</color>
 
     <drawable name="com_facebook_blue">#3B5998</drawable>
     <drawable name="com_facebook_blue_pressed">#2f487c</drawable>
@@ -12,4 +13,7 @@
     <drawable name="red_google_pressed">#b63a28</drawable>
     <drawable name="blue_vk">#597ba0</drawable>
     <drawable name="blue_vk_pressed">#436b96</drawable>
+
+    <color name="black_overlay">#66000000</color>
+    <color name="white">#FFFFFF</color>
 </resources>
