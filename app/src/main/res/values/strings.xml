@@ -1,0 +1,15 @@
+<resources>
+
+    <string name="app_name">Fun One</string>
+    <string name="action_settings">Settings</string>
+    <string name="test_facebook_app_id">148737502201127</string>
+
+    <!--SocialLoginActivity-->
+    <string name="log_in">Log In</string>
+    <string name="com_facebook_loginview_log_out_button">Facebook</string>
+    <string name="join_and_have_fun">Join us and have more fun</string>
+    <string name="terms_privacy_policy">Terms of Service and Private Police</string>
+    <string name="google">Google</string>
+    <string name="vk">VKontakte</string>
+
+</resources>

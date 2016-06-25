@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#00bcd4</color>
+    <color name="colorPrimaryDark">#00acc1</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="yellow">#ffd740</color>
+
+    <drawable name="com_facebook_blue">#3B5998</drawable>
+    <drawable name="com_facebook_blue_pressed">#2f487c</drawable>
+    <drawable name="red_google">#d84b37</drawable>
+    <drawable name="red_google_pressed">#b63a28</drawable>
+    <drawable name="blue_vk">#597ba0</drawable>
+    <drawable name="blue_vk_pressed">#436b96</drawable>
+</resources>
