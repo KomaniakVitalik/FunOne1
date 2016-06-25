@@ -34,7 +34,7 @@ public class ViewPagerManager implements TabLayout.OnTabSelectedListener,
 
     private int[] TAB_ICS_SELECTED = {
             R.drawable.home_active,
-            R.drawable.ic_search_white_24dp,
+            R.drawable.search,
             R.drawable.profile_active
     };
 
