@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="TextViewFont">
+
+        <attr name="custom_font" format="enum">
+            <enum name="RobotoRegular" value="0" />
+
+            <enum name="RobotoMedium" value="1" />
+            <enum name="RobotoMediumItalic" value="2" />
+
+            <enum name="RobotoItalic" value="3" />
+
+            <enum name="RobotoThin" value="4" />
+            <enum name="RobotoThinItalic" value="5" />
+
+            <enum name="RobotoBold" value="6" />
+            <enum name="RobotoBoldItalic" value="7" />
+
+            <enum name="RobotoLight" value="8" />
+            <enum name="RobotoLightItalic" value="9" />
+
+            <enum name="RobotoBlack" value="10" />
+            <enum name="RobotoBlackItalic" value="11" />
+
+            <enum name="RobotoCondensedRegular" value="12" />
+            <enum name="RobotoCondensedItalic" value="13" />
+
+            <enum name="RobotoCondensedLight" value="14" />
+            <enum name="RobotoCondensedLightItalic" value="15" />
+
+            <enum name="RobotoCondensedBold" value="16" />
+            <enum name="RobotoCondensedBoldItalic" value="17" />
+
+            <enum name="SFNSDisplay" value="18" />
+
+            <enum name="OpenSansHebrewRegular" value="19" />
+
+            <enum name="OpenSansHebrewItalic" value="20" />
+
+            <enum name="OpenSansHebrewLight" value="21" />
+            <enum name="OpenSansHebrewLightItalic" value="22" />
+
+            <enum name="OpenSansHebrewBold" value="23" />
+            <enum name="OpenSansHebrewBoldItalic" value="24" />
+
+            <enum name="OpenSansHebrewExtraBold" value="25" />
+            <enum name="OpenSansHebrewExtraBoldItalic" value="26" />
+
+            <enum name="OpenSansHebrewCondensedRegular" value="27" />
+
+            <enum name="OpenSansHebrewCondensedItalic" value="28" />
+
+            <enum name="OpenSansHebrewCondensedLight" value="29" />
+            <enum name="OpenSansHebrewCondensedLightItalic" value="30" />
+
+            <enum name="OpenSansHebrewCondensedBold" value="31" />
+            <enum name="OpenSansHebrewCondensedBoldItalic" value="32" />
+
+            <enum name="OpenSansHebrewCondensedExtraBold" value="33" />
+            <enum name="OpenSansHebrewCondensedExtraBoldItalic" value="34" />
+
+        </attr>
+
+    </declare-styleable>
+
+    <!-- Declare custom theme attributes that allow changing which styles are
+         used for button bars depending on the API level.
+         ?android:attr/buttonBarStyle is new as of API 11 so this is
+         necessary to support previous API levels. -->
+    <declare-styleable name="ButtonBarContainerTheme">
+        <attr name="metaButtonBarStyle" format="reference" />
+        <attr name="metaButtonBarButtonStyle" format="reference" />
+    </declare-styleable>
+
+</resources>
