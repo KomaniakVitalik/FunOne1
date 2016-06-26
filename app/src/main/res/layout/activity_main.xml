@@ -4,45 +4,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context=".activities.MainActivity">
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
 
     <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
         android:id="@+id/app_bar"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_layout"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:visibility="visible"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="@color/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/sliding_tabs"
-                style="@style/MyCustomTextAppearance"
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:layout_below="@+id/toolbar"
-                android:background="@color/colorPrimary"
-                app:tabGravity="fill"
-                app:tabIndicatorHeight="4dp"
-                app:tabMode="fixed" />
-        </android.support.v7.widget.Toolbar>
+                android:layout_gravity="bottom"
+                android:background="?attr/colorPrimary"
+                android:visibility="visible"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                <TextView
+                    android:id="@+id/tv_main_activity_title"
+                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/sliding_tabs"
+                    style="@style/MyCustomTextAppearance"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_below="@+id/toolbar"
+                    android:background="@color/colorPrimary"
+                    app:tabGravity="fill"
+                    app:tabIndicatorHeight="4dp"
+                    app:tabMode="fixed" />
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
     <com.www.funone.view.NonSwipableViewPager
         android:id="@+id/viewPager"
-        android:layout_below="@+id/app_bar"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/app_bar"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-
-    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

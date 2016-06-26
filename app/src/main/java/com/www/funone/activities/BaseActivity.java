@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Spannable;
+import android.text.style.ForegroundColorSpan;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
@@ -37,6 +39,19 @@ public class BaseActivity extends AppCompatActivity {
 
     protected void applyCustomFont(TextView tv, String typeFaceLocation) {
         tv.setTypeface(Typeface.createFromAsset(getAssets(), typeFaceLocation));
+    }
+
+    /**
+     * Spans part of word
+     *
+     * @param view  - TextView to spanWord
+     * @param start - start of desired word
+     * @param end   - end of desired word
+     * @param color - color to apply
+     */
+    protected void spanWord(TextView view, int start, int end, int color) {
+        Spannable str = (Spannable) view.getText();
+        str.setSpan(new ForegroundColorSpan(color), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 
     protected String getResString(int id) {
