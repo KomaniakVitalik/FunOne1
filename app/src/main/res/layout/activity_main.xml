@@ -9,7 +9,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="112dp"
+        android:layout_height="@dimen/tool_bar_size"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.design.widget.CollapsingToolbarLayout
@@ -58,6 +58,7 @@
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="@dimen/spacing_small"
                 android:layout_marginEnd="@dimen/spacing_small"
+                android:visibility="gone"
                 android:layout_marginStart="@dimen/spacing_small"
                 android:background="@android:color/white"
                 android:orientation="horizontal">
