@@ -1,10 +1,7 @@
 package com.www.funone.fragments;
 
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -15,6 +12,7 @@ import android.widget.RelativeLayout;
 
 import com.www.funone.R;
 import com.www.funone.adapters.ProfilePageAdapter;
+import com.www.funone.view.NonSwipableViewPager;
 import com.www.funone.view.TextViewFont;
 
 
@@ -23,7 +21,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private View mView;
     private TextViewFont mEditPhoto;
     private TabLayout tabLayout;
-    private ViewPager viewPager;
+    private NonSwipableViewPager viewPager;
 
 
     public ProfileFragment() {
@@ -65,22 +63,25 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setupViewPager() {
-        viewPager = (ViewPager) mView.findViewById(R.id.viewpager);
+        viewPager = (NonSwipableViewPager) mView.findViewById(R.id.viewpager);
         setupViewPager(viewPager);
+        viewPager.setPagingEnabled(false);
 
         tabLayout = (TabLayout) mView.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setCurrentItem(0);
 
         tabLayout.setSelectedTabIndicatorHeight(0);
-        tabLayout.setPadding(0, 0, 0, 0);
 
         tabLayout.getTabAt(0).setCustomView(linkedPostsView());
         tabLayout.getTabAt(1).setCustomView(myPostsView());
+
+        tabLayout.getTabAt(0).getCustomView().setSelected(true);
     }
 
+
     private View linkedPostsView() {
-        return LayoutInflater.from(getActivity()).inflate(R.layout.tab_linked_posts, null);
+        return LayoutInflater.from(getActivity()).inflate(R.layout.tab_liked_posts, null);
     }
 
     private View myPostsView() {
@@ -89,7 +90,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     private void setupViewPager(ViewPager viewPager) {
         ProfilePageAdapter adapter = new ProfilePageAdapter(getActivity().getSupportFragmentManager());
-        adapter.addFragment(new LinkedPostsFragment(), null);
+        adapter.addFragment(new LikedPostsFragment(), null);
         adapter.addFragment(new MyPostsFragment(), null);
         viewPager.setAdapter(adapter);
     }

@@ -28,5 +28,7 @@
     <string name="linked_posts">Linked posts</string>
     <string name="my_posts">My posts</string>
     <string name="linked_profile_empty">Here you find your posts!</string>
+    <string name="liked_profile_empty">Here you find liked posts!</string>
+    <string name="my_posts_empty">Here you find your posts!</string>
 
 </resources>

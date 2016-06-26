@@ -109,7 +109,7 @@
         android:layout_below="@+id/tabs"
         android:background="@color/gray_light" />
 
-    <android.support.v4.view.ViewPager
+    <com.www.funone.view.NonSwipableViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
