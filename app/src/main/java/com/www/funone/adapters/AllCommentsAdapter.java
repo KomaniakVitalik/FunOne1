@@ -63,7 +63,9 @@ public class AllCommentsAdapter extends BaseAdapter {
             mUserAva = (CircleImageView) view.findViewById(R.id.img_user);
             mUserName = (TextViewFont)view.findViewById(R.id.tv_comment_owner);
             mCommentText = (TextViewFont)view.findViewById(R.id.tv_comment_text);
+            mCommentText.onSetAlpha(54);
             mCreatedTime = (TextViewFont)view.findViewById(R.id.tv_comment_time);
+            mCreatedTime.onSetAlpha(37);
         }
     }
 }

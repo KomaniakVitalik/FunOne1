@@ -140,4 +140,16 @@ public class TextViewFont extends TextView {
     private String fontPath(String font) {
         return FONT_DIR + font + FILE_FORMAT;
     }
+
+    /**
+     * @param alpha - value of text alpha
+     * @return
+     */
+    @Override
+    public boolean onSetAlpha(int alpha) {
+        setTextColor(getTextColors().withAlpha(alpha));
+        setHintTextColor(getHintTextColors().withAlpha(alpha));
+        setLinkTextColor(getLinkTextColors().withAlpha(alpha));
+        return true;
+    }
 }
