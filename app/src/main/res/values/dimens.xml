@@ -40,4 +40,7 @@
     <dimen name="size_profile_ava">85dp</dimen>
     <dimen name="size_add_profile_photo">20dp</dimen>
 
+
+    <dimen name="tool_bar_size">112dp</dimen>
+
 </resources>
