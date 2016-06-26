@@ -97,10 +97,10 @@
         android:layout_below="@+id/divider"
         app:tabGravity="fill"
         app:tabMode="fixed"
-        app:tabPaddingBottom="-5dp"
+        app:tabPaddingBottom="0dp"
         app:tabPaddingEnd="0dp"
         app:tabPaddingStart="0dp"
-        app:tabPaddingTop="-5dp" />
+        app:tabPaddingTop="0dp" />
 
     <View
         android:id="@+id/bottom_divider"
@@ -113,8 +113,7 @@
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/bottom_divider"
-        android:layout_marginTop="@dimen/spacing_small" />
+        android:layout_below="@+id/bottom_divider" />
 
 
 </RelativeLayout>

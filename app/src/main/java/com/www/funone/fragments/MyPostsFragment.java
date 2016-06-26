@@ -7,10 +7,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import com.www.funone.R;
+import com.www.funone.adapters.MyPostsAdapter;
 
 public class MyPostsFragment extends Fragment {
+
+    private ListView mPostsListView;
+    private View mView;
 
 
     public MyPostsFragment() {
@@ -35,6 +41,34 @@ public class MyPostsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_posts, container, false);
+        mView = inflater.inflate(R.layout.fragment_my_posts, container, false);
+
+        setupView();
+
+        return mView;
+    }
+
+    private void initView() {
+        mPostsListView = (ListView) mView.findViewById(R.id.lv_my_posts);
+
+    }
+
+    private void setupView() {
+        initView();
+
+        setupPostsList();
+    }
+
+    private void setupPostsList() {
+        MyPostsAdapter postsAdapter = new MyPostsAdapter(getActivity());
+        mPostsListView.setAdapter(postsAdapter);
+
+        mPostsListView.addHeaderView(header(), null, false);
+        mPostsListView.addFooterView(header(), null, false);
+    }
+
+    private View header() {
+        View viewHeader = getActivity().getLayoutInflater().inflate(R.layout.layout_header_and_footer, null);
+        return viewHeader;
     }
 }
