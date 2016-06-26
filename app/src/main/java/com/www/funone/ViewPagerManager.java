@@ -1,11 +1,11 @@
 package com.www.funone;
 
-import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.widget.Toast;
 
 import com.www.funone.activities.MainActivity;
 import com.www.funone.fragments.ContentFragment;
@@ -24,6 +24,7 @@ public class ViewPagerManager implements TabLayout.OnTabSelectedListener,
     private MainActivity mActivity;
     private NonSwipableViewPager mViewPager;
     private ScreenSlidePagerAdapter mPagerAdapter;
+    private int mPreviousSelectedPosition = -1;
 
     private int[] TAB_ICS_STABLE = {
             R.drawable.home,
@@ -44,7 +45,7 @@ public class ViewPagerManager implements TabLayout.OnTabSelectedListener,
     }
 
 
-    public void init() {
+    private void init() {
         mViewPager = (NonSwipableViewPager) mActivity.findViewById(R.id.viewPager);
         mViewPager.setOffscreenPageLimit(2);
 
@@ -75,6 +76,11 @@ public class ViewPagerManager implements TabLayout.OnTabSelectedListener,
         }
     }
 
+    public void returnToPreviousTab(){
+        if(mPreviousSelectedPosition != -1){
+            mViewPager.setCurrentItem(mPreviousSelectedPosition);
+        }
+    }
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
@@ -85,6 +91,7 @@ public class ViewPagerManager implements TabLayout.OnTabSelectedListener,
                 case 0:
                     tab.setIcon(TAB_ICS_SELECTED[pos]);
                     mActivity.collapseToolBar();
+                    mPreviousSelectedPosition = pos;
                     break;
                 case 1:
                     //mActivity.startActivity(new Intent(mActivity, SearchActivity.class));
@@ -94,6 +101,7 @@ public class ViewPagerManager implements TabLayout.OnTabSelectedListener,
                 case 2:
                     tab.setIcon(TAB_ICS_SELECTED[pos]);
                     mActivity.collapseToolBar();
+                    mPreviousSelectedPosition = pos;
                     break;
             }
         }

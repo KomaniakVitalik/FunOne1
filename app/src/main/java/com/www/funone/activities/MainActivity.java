@@ -20,13 +20,14 @@ public class MainActivity extends BaseActivity {
     private AppBarLayout mBarLayout;
     private TextView mTvToolBarTitle;
     private boolean toolBarExpanded = false;
+    private ViewPagerManager mViewPagerManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setUpToolBar();
-        new ViewPagerManager(this);
+        mViewPagerManager = new ViewPagerManager(this);
     }
 
     /**********************************************************************************************/
@@ -105,6 +106,7 @@ public class MainActivity extends BaseActivity {
     public void onBackPressed() {
         if (toolBarExpanded) {
             collapseToolBar();
+            mViewPagerManager.returnToPreviousTab();
         } else {
             super.onBackPressed();
         }
