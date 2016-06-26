@@ -1,9 +1,13 @@
 package com.www.funone.model;
 
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by vitaliy.herasymchuk on 6/26/16.
  */
-public class HashTag {
+public class HashTag implements Parcelable {
     private String name;
     private int postsNumber;
 
@@ -49,4 +53,36 @@ public class HashTag {
         result = 31 * result + postsNumber;
         return result;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeInt(this.postsNumber);
+    }
+
+    public HashTag() {
+    }
+
+    protected HashTag(Parcel in) {
+        this.name = in.readString();
+        this.postsNumber = in.readInt();
+    }
+
+    public static final Parcelable.Creator<HashTag> CREATOR = new Parcelable.Creator<HashTag>() {
+        @Override
+        public HashTag createFromParcel(Parcel source) {
+            return new HashTag(source);
+        }
+
+        @Override
+        public HashTag[] newArray(int size) {
+            return new HashTag[size];
+        }
+    };
 }

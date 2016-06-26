@@ -38,8 +38,12 @@
         <activity
             android:name=".activities.SettingsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.AllCommentActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".activities.AllCommentActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.HashTagContentActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

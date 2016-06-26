@@ -1,6 +1,7 @@
 package com.www.funone.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.www.funone.R;
+import com.www.funone.activities.HashTagContentActivity;
 import com.www.funone.adapters.HashTagRecyclerAdapter;
 import com.www.funone.model.HashTag;
 
@@ -20,7 +22,6 @@ import java.util.List;
 
 public class SearchFragment extends Fragment implements HashTagRecyclerAdapter.OnHashTagClickListener {
 
-    private RecyclerView mRecViewSearch;
     private HashTagRecyclerAdapter mAdapter;
     private List<HashTag> mHashTags = new ArrayList<>();
 
@@ -32,7 +33,6 @@ public class SearchFragment extends Fragment implements HashTagRecyclerAdapter.O
     public static SearchFragment newInstance() {
         SearchFragment fragment = new SearchFragment();
         Bundle args = new Bundle();
-
         fragment.setArguments(args);
         return fragment;
     }
@@ -54,11 +54,11 @@ public class SearchFragment extends Fragment implements HashTagRecyclerAdapter.O
     }
 
     private void getView(View view) {
-        mRecViewSearch = (RecyclerView) view.findViewById(R.id.rec_view_search);
-        mRecViewSearch.setLayoutManager(new LinearLayoutManager(getContext()));
+        RecyclerView recViewSearch = (RecyclerView) view.findViewById(R.id.rec_view_search);
+        recViewSearch.setLayoutManager(new LinearLayoutManager(getContext()));
         mAdapter = new HashTagRecyclerAdapter(mHashTags);
         mAdapter.setOnHashTagClickListener(this);
-        mRecViewSearch.setAdapter(mAdapter);
+        recViewSearch.setAdapter(mAdapter);
 
         //TODO
         stubData();
@@ -82,6 +82,12 @@ public class SearchFragment extends Fragment implements HashTagRecyclerAdapter.O
         updateAdapter(tags);
     }
 
+    private void startHashTagContentActivity(HashTag tag) {
+        Intent intent = new Intent(getActivity(), HashTagContentActivity.class);
+        intent.putExtra(HashTagContentActivity.ARG_HASH_TAG, tag);
+        getActivity().startActivity(intent);
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -90,6 +96,6 @@ public class SearchFragment extends Fragment implements HashTagRecyclerAdapter.O
 
     @Override
     public void onHashTagClicked(HashTag tag) {
-        Toast.makeText(getContext(), tag.getName(), Toast.LENGTH_SHORT).show();
+        startHashTagContentActivity(tag);
     }
 }
