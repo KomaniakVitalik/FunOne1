@@ -59,6 +59,9 @@ public class AllCommentActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * initialize all views in fragment
+     */
     private void initView() {
         mAllCommentsListView = (ListView) findViewById(R.id.lv_all_comments);
     }
@@ -68,6 +71,9 @@ public class AllCommentActivity extends BaseActivity {
         setupList();
     }
 
+    /**
+     * initialize adapter and set it into list
+     */
     private void setupList() {
         AllCommentsAdapter commentsAdapter = new AllCommentsAdapter(this);
         mAllCommentsListView.setAdapter(commentsAdapter);
