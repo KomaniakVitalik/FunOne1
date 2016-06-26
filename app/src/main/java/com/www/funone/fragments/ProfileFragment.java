@@ -70,8 +70,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
         tabLayout = (TabLayout) mView.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+        viewPager.setCurrentItem(0);
 
         tabLayout.setSelectedTabIndicatorHeight(0);
+        tabLayout.setPadding(0, 0, 0, 0);
 
         tabLayout.getTabAt(0).setCustomView(linkedPostsView());
         tabLayout.getTabAt(1).setCustomView(myPostsView());
@@ -87,8 +89,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     private void setupViewPager(ViewPager viewPager) {
         ProfilePageAdapter adapter = new ProfilePageAdapter(getActivity().getSupportFragmentManager());
-        adapter.addFragment(new LinkedPostsFragment(), "ONE");
-        adapter.addFragment(new MyPostsFragment(), "TWO");
+        adapter.addFragment(new LinkedPostsFragment(), null);
+        adapter.addFragment(new MyPostsFragment(), null);
         viewPager.setAdapter(adapter);
     }
 

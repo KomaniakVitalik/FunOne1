@@ -2,14 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <com.www.funone.view.TextViewFont
-        android:id="@+id/tv_tab_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:custom_font="RobotoRegular" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height_normal"
+        android:background="@drawable/selector_tab_bg"
+        android:orientation="vertical"
+        android:gravity="center">
+
+
+        <com.www.funone.view.TextViewFont
+            android:id="@+id/tv_tab_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/linked_posts"
+            android:textColor="@color/selector_tab_color"
+            android:textSize="@dimen/text_size_questions"
+            app:custom_font="RobotoRegular" />
+
+    </LinearLayout>
 
 </LinearLayout>

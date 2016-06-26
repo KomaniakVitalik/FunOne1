@@ -18,7 +18,7 @@
             android:layout_width="@dimen/size_add_profile_photo"
             android:layout_height="@dimen/size_add_profile_photo"
             android:layout_alignParentRight="true"
-            android:src="@drawable/blue_vk_pressed" />
+            android:src="@drawable/add" />
 
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -26,7 +26,7 @@
             android:layout_width="@dimen/size_profile_ava"
             android:layout_height="@dimen/size_profile_ava"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/blue_vk_pressed" />
+            android:src="@drawable/profile2" />
     </RelativeLayout>
 
     <com.www.funone.view.TextViewFont
@@ -96,7 +96,11 @@
         android:layout_height="@dimen/button_height_normal"
         android:layout_below="@+id/divider"
         app:tabGravity="fill"
-        app:tabMode="fixed" />
+        app:tabMode="fixed"
+        app:tabPaddingBottom="-5dp"
+        app:tabPaddingEnd="0dp"
+        app:tabPaddingStart="0dp"
+        app:tabPaddingTop="-5dp" />
 
     <View
         android:id="@+id/bottom_divider"
@@ -110,8 +114,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/bottom_divider"
-        android:layout_marginTop="@dimen/spacing_small"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_marginTop="@dimen/spacing_small" />
 
 
 </RelativeLayout>

@@ -20,4 +20,5 @@
     <color name="orange">#ff7043</color>
     <color name="orange_dark">#fd6132</color>
     <color name="gray_light">#e0e0e0</color>
+    <color name="gray_dark">#dedede</color>
 </resources>

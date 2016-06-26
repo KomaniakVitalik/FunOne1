@@ -27,6 +27,8 @@
                 android:layout_gravity="bottom"
                 android:background="?attr/colorPrimary"
                 android:visibility="visible"
+                app:contentInsetEnd="0dp"
+                app:contentInsetStart="0dp"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
 
                 <TextView
