@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/gray_bg"
-    android:paddingLeft="@dimen/spacing_huge"
-    android:paddingRight="@dimen/spacing_huge">
+    android:paddingLeft="@dimen/spacing_big"
+    android:paddingRight="@dimen/spacing_big">
 
     <com.www.funone.view.TextViewFont
         android:id="@+id/tv_post_title"
