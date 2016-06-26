@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-
 import com.www.funone.R;
 import com.www.funone.adapters.AllCommentsAdapter;
 
