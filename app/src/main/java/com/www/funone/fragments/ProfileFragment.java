@@ -6,11 +6,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.www.funone.R;
+import com.www.funone.view.TextViewFont;
 
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements View.OnClickListener {
+
+    private View mView;
+    private TextViewFont mEditPhoto;
 
 
     public ProfileFragment() {
@@ -36,8 +42,30 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        return view;
+        mView = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        setupView();
+
+        return mView;
     }
 
+    private void initView() {
+        mEditPhoto = (TextViewFont) mView.findViewById(R.id.tv_edit_photo);
+        mEditPhoto.onSetAlpha(37);
+
+        RelativeLayout addFunOne = (RelativeLayout) mView.findViewById(R.id.btn_add_funone);
+        addFunOne.setOnClickListener(this);
+    }
+
+    private void setupView() {
+        initView();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_add_funone:
+                break;
+        }
+    }
 }

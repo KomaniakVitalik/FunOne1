@@ -1,9 +1,92 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray_bg"
     tools:context="com.www.funone.fragments.ProfileFragment">
 
+    <RelativeLayout
+        android:id="@+id/ava"
+        android:layout_width="@dimen/size_profile_ava"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/spacing_20">
+
+        <ImageView
+            android:id="@+id/img_add_user_photo"
+            android:layout_width="@dimen/size_add_profile_photo"
+            android:layout_height="@dimen/size_add_profile_photo"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/blue_vk_pressed" />
 
 
-</FrameLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_profile_ava"
+            android:layout_width="@dimen/size_profile_ava"
+            android:layout_height="@dimen/size_profile_ava"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/blue_vk_pressed" />
+    </RelativeLayout>
+
+    <com.www.funone.view.TextViewFont
+        android:id="@+id/tv_edit_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ava"
+        android:layout_centerHorizontal="true"
+        android:text="@string/edit_photo"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_nano"
+        app:custom_font="RobotoRegular" />
+
+    <com.www.funone.view.TextViewFont
+        android:id="@+id/tv_profile_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_edit_photo"
+        android:layout_centerHorizontal="true"
+        android:text="Vitaliy Komaniak"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_small"
+        app:custom_font="RobotoRegular" />
+
+    <RelativeLayout
+        android:id="@+id/btn_add_funone"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/button_height_short"
+        android:layout_below="@+id/tv_profile_user_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:background="@drawable/selector_orange">
+
+        <ImageView
+            android:id="@+id/camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/spacing_small"
+            android:src="@drawable/photo_icon" />
+
+        <com.www.funone.view.TextViewFont
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/spacing_normal"
+            android:layout_marginRight="@dimen/spacing_small"
+            android:layout_toRightOf="@+id/camera"
+            android:text="@string/add_your_fun_one"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_micro"
+            app:custom_font="RobotoRegular" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/btn_add_funone"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:background="@color/gray_light" />
+
+
+</RelativeLayout>
