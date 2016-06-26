@@ -24,7 +24,25 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
         setContentView(R.layout.activity_socila_login);
         setUpToolBar();
         setTitleTypeFace();
-        initButtons();
+        setUpView();
+    }
+
+    /**
+     * Initializes All the views
+     */
+    private void setUpView() {
+        mFaceLogInButton = (LoginButton) findViewById(R.id.facebook_login_button);
+        setButtonListeners(this);
+    }
+
+    /**
+     * Adds click listener for buttons
+     */
+    private void setButtonListeners(View.OnClickListener listener) {
+        findViewById(R.id.google_plus_log_in_button).setOnClickListener(listener);
+        findViewById(R.id.rel_facebook_btn_wrapper).setOnClickListener(listener);
+        findViewById(R.id.rel_terms_of_services).setOnClickListener(listener);
+        findViewById(R.id.vk_login_btn).setOnClickListener(listener);
     }
 
     /**
@@ -40,17 +58,6 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
     }
 
     /**
-     * Initializes Button clicks
-     */
-    private void initButtons() {
-        findViewById(R.id.google_plus_log_in_button).setOnClickListener(this);
-        findViewById(R.id.rel_facebook_btn_wrapper).setOnClickListener(this);
-        findViewById(R.id.rel_terms_of_services).setOnClickListener(this);
-        findViewById(R.id.vk_login_btn).setOnClickListener(this);
-        mFaceLogInButton = (LoginButton) findViewById(R.id.facebook_login_button);
-    }
-
-    /**
      * Applies LucidaGrande-Bold font to title TextViews
      */
     private void setTitleTypeFace() {
@@ -59,19 +66,6 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
         applyCustomFont(tvFun, FONT_LUCIDA);
         applyCustomFont(tvJoin, FONT_LUCIDA);
         spanWord(tvFun, 4, tvFun.getText().length(), getCompatColor(R.color.yellow));
-    }
-
-    /**
-     * Spans part of word
-     *
-     * @param view  - TextView to spanWord
-     * @param start - start of desired word
-     * @param end   - end of desired word
-     * @param color - color to apply
-     */
-    private void spanWord(TextView view, int start, int end, int color) {
-        Spannable str = (Spannable) view.getText();
-        str.setSpan(new ForegroundColorSpan(color), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 
     /**
@@ -99,5 +93,6 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
                         , Toast.LENGTH_SHORT).show();
                 break;
         }
+        setButtonListeners(null);
     }
 }

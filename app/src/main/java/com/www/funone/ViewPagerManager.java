@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.www.funone.activities.MainActivity;
-import com.www.funone.activities.SearchActivity;
 import com.www.funone.fragments.ContentFragment;
 import com.www.funone.fragments.ProfileFragment;
 import com.www.funone.fragments.SearchFragment;
@@ -34,7 +33,7 @@ public class ViewPagerManager implements TabLayout.OnTabSelectedListener,
 
     private int[] TAB_ICS_SELECTED = {
             R.drawable.home_active,
-            R.drawable.search,
+            R.drawable.ic_search_white_36dp,
             R.drawable.profile_active
     };
 
@@ -85,13 +84,16 @@ public class ViewPagerManager implements TabLayout.OnTabSelectedListener,
             switch (pos) {
                 case 0:
                     tab.setIcon(TAB_ICS_SELECTED[pos]);
+                    mActivity.collapseToolBar();
                     break;
                 case 1:
                     //mActivity.startActivity(new Intent(mActivity, SearchActivity.class));
                     tab.setIcon(TAB_ICS_SELECTED[pos]);
+                    mActivity.expandToolBar();
                     break;
                 case 2:
                     tab.setIcon(TAB_ICS_SELECTED[pos]);
+                    mActivity.collapseToolBar();
                     break;
             }
         }
