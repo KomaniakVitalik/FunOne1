@@ -5,29 +5,34 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.www.funone.R;
 import com.www.funone.ViewPagerManager;
 import com.www.funone.util.ViewUtil;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private AppBarLayout mBarLayout;
     private TextView mTvToolBarTitle;
     private boolean toolBarExpanded = false;
     private ViewPagerManager mViewPagerManager;
+    private EditText mEdSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setUpToolBar();
         mViewPagerManager = new ViewPagerManager(this);
+        setUpToolBar();
+        addSearchTextWatcher();
     }
 
     /**********************************************************************************************/
@@ -56,9 +61,11 @@ public class MainActivity extends BaseActivity {
         setToolBarGravity(Gravity.TOP);
         hideSlidingTabs();
         toolBarExpanded = true;
+        showSearchView();
     }
 
     public void collapseToolBar() {
+        hideSearchView();
         mBarLayout.setExpanded(false, true);
         setToolBarBackAndTitleVisible(false);
         hideToolBarTitle();
@@ -101,6 +108,40 @@ public class MainActivity extends BaseActivity {
     //ToolBar end region
 
     /**********************************************************************************************/
+    /***************************************** Search *********************************************/
+    /**********************************************************************************************/
+
+    //Search start region
+    private void showSearchView() {
+        ViewUtil.showView(findViewById(R.id.rel_search));
+    }
+
+    private void hideSearchView() {
+        ViewUtil.hideView(findViewById(R.id.rel_search));
+    }
+
+    private void addSearchTextWatcher() {
+        findViewById(R.id.iv_clear_search).setOnClickListener(this);
+        mEdSearch = (EditText) findViewById(R.id.ed_search);
+        mEdSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    /**********************************************************************************************/
 
     @Override
     public void onBackPressed() {
@@ -128,5 +169,14 @@ public class MainActivity extends BaseActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_clear_search:
+                mEdSearch.setText("");
+                break;
+        }
     }
 }
