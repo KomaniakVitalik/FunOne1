@@ -2,4 +2,6 @@
 <resources>
     <string name="app_name">Fun One</string>
     <string name="log_in">Вход</string>
+    <string name="popular_hash_tag">Популярные хештеги</string>
+    <string name="fun_search_hint">Найти FunOne</string>
 </resources>

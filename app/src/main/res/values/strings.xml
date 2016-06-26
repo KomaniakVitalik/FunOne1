@@ -15,6 +15,7 @@
     <!--Search-->
     <string name="search">Search</string>
     <string name="fun_search_hint">FunOne search</string>
+    <string name="popular_hash_tag">Popular hashtag</string>
 
 
     <string name="settings">Settings</string>
