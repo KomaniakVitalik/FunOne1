@@ -1,7 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="@dimen/item_hash_tag_height"
     android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/lin_hashtag_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/hash_tag_width"
+            android:layout_height="@dimen/item_hash_tag_height"
+            android:gravity="center"
+            android:text="#"
+            android:textColor="#B9B9B9"
+            android:textSize="@dimen/text_size_large_plus" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_hash_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="#people"
+                    android:textSize="@dimen/text_size_micro" />
+
+                <TextView
+                    android:id="@+id/tv_posts_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="76,081 posts"
+                    android:textColor="#B9B9B9"
+                    android:textSize="@dimen/text_size_micro" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="@dimen/spacing_large"
+                android:background="@color/divider_color" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
 
 </RelativeLayout>
