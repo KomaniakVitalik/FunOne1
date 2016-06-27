@@ -1,6 +1,7 @@
 package com.www.funone.activities;
 
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -8,19 +9,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+
 import com.www.funone.R;
 import com.www.funone.adapters.AllCommentsAdapter;
+import com.www.funone.fragments.CommentsFragment;
+import com.www.funone.util.Validator;
 
 public class AllCommentActivity extends BaseActivity {
 
-    private ListView mAllCommentsListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_comment);
         setUpToolBar();
-        setupView();
+        loadFrg(CommentsFragment.newInstance(), R.id.content_comments);
     }
 
     private void setUpToolBar() {
@@ -36,8 +39,19 @@ public class AllCommentActivity extends BaseActivity {
                 onBackPressed();
             }
         });
+    }
 
-        setupView();
+    @Override
+    public void onBackPressed() {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.content_comments);
+        if(Validator.isObjectValid(fragment)){
+            if(fragment instanceof CommentsFragment){
+                this.finish();
+            }
+        }else{
+            super.onBackPressed();
+        }
+
     }
 
     @Override
@@ -58,23 +72,5 @@ public class AllCommentActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * initialize all views in fragment
-     */
-    private void initView() {
-        mAllCommentsListView = (ListView) findViewById(R.id.lv_all_comments);
-    }
 
-    private void setupView() {
-        initView();
-        setupList();
-    }
-
-    /**
-     * initialize adapter and set it into list
-     */
-    private void setupList() {
-        AllCommentsAdapter commentsAdapter = new AllCommentsAdapter(this);
-        mAllCommentsListView.setAdapter(commentsAdapter);
-    }
 }

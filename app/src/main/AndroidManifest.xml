@@ -25,6 +25,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.SocialLoginActivity"
+            android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,6 +44,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.HashTagContentActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.BestCommentsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

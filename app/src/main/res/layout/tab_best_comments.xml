@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rectangular_shape"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <!--android:background="@drawable/selector_tab_bg"-->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tab_comments_height"
+        android:background="@drawable/tabs_selector"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.www.funone.view.TextViewFont
+            android:id="@+id/tv_tab_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/best_comments"
+            android:textColor="@color/selector_tab_color"
+            android:textSize="@dimen/text_size_micro"
+            app:custom_font="RobotoRegular" />
+    </LinearLayout>
+
+</LinearLayout>

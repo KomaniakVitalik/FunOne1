@@ -7,6 +7,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,11 +21,14 @@ import com.www.funone.util.ViewUtil;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
+    public static final String TAG = "MainActivity";
+
     private AppBarLayout mBarLayout;
     private TextView mTvToolBarTitle;
     private boolean toolBarExpanded = false;
     private ViewPagerManager mViewPagerManager;
     private EditText mEdSearch;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +44,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     /**********************************************************************************************/
     //ToolBar start region
     private void setUpToolBar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
         mBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+        setNestedToolBarScrollEnabled(false);
         mBarLayout.setExpanded(false);
         mTvToolBarTitle = (TextView) findViewById(R.id.tv_main_activity_title);
         setToolBarTitleText(getResString(R.string.search));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        setPrimaryStatusBarColor(R.color.colorPrimaryDark);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
@@ -55,6 +61,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     public void expandToolBar() {
+        setNestedToolBarScrollEnabled(true);
         mBarLayout.setExpanded(true, true);
         setToolBarBackAndTitleVisible(true);
         showToolBatTitle();
@@ -65,6 +72,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     public void collapseToolBar() {
+        setNestedToolBarScrollEnabled(false);
         hideSearchView();
         mBarLayout.setExpanded(false, true);
         setToolBarBackAndTitleVisible(false);
@@ -72,6 +80,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setToolBarGravity(Gravity.BOTTOM);
         showSlidingTabs();
         toolBarExpanded = false;
+    }
+
+    private void setNestedToolBarScrollEnabled(boolean enabled) {
+        CollapsingToolbarLayout.LayoutParams params = (CollapsingToolbarLayout.LayoutParams)
+                findViewById(R.id.fake_tool_bar_view).getLayoutParams();
+        if (!enabled) {
+            TypedValue tv = new TypedValue();
+            if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+                params.height = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
+            }
+        } else {
+            params.height = getResources().getDimensionPixelSize(R.dimen.tool_bar_size);
+        }
+        findViewById(R.id.fake_tool_bar_view).setLayoutParams(params);
     }
 
     private void setToolBarGravity(int gravity) {
@@ -93,6 +115,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         getSupportActionBar().setDisplayShowTitleEnabled(visible);
         getSupportActionBar().setDisplayHomeAsUpEnabled(visible);
     }
+
 
     private void showToolBatTitle() {
         ViewUtil.showView(mTvToolBarTitle);
