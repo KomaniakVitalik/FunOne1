@@ -8,9 +8,9 @@
         android:id="@+id/lv_all_comments"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@null"
-        android:drawSelectorOnTop="true"
         android:background="@color/white"
-        android:dividerHeight="0dp" />
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:drawSelectorOnTop="true" />
 
 </RelativeLayout>

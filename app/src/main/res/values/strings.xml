@@ -38,5 +38,14 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="content_settings">Настройки контента</string>
+    <string name="auto_play">Автопроигрывание</string>
+    <string name="notifications">Уведомления</string>
+    <string name="language">Язык</string>
+    <string name="connected_accounts">Связанные аккаунты</string>
+    <string name="facebook">Facebook</string>
+    <string name="connected">Подключен</string>
+    <string name="disconnect">Отключен</string>
+    <string name="logout"><u>Выйти</u></string>
 
 </resources>
