@@ -44,6 +44,7 @@
     <dimen name="size_add_profile_photo">20dp</dimen>
 
     <dimen name="tab_comments_height">24dp</dimen>
+    <dimen name="line_height">0.5dp</dimen>
 
 
 
