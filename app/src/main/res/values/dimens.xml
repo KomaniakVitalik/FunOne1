@@ -46,4 +46,6 @@
     <dimen name="item_hash_tag_header_height">46dp</dimen>
     <dimen name="hash_tag_width">56dp</dimen>
 
+    <dimen name="post_image_height">293dp</dimen>
+
 </resources>
