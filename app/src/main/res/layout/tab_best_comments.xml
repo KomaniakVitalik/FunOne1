@@ -13,8 +13,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/tab_comments_height"
-        android:gravity="center"
         android:background="@drawable/tabs_selector"
+        android:gravity="center"
         android:orientation="vertical">
 
         <com.www.funone.view.TextViewFont

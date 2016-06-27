@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:fitsSystemWindows="true"
     tools:context="com.www.funone.activities.BestCommentsActivity">
 
@@ -36,10 +37,9 @@
             android:layout_height="wrap_content" />
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="@dimen/button_height_micro"
-            android:layout_below="@+id/layout_post"
+            android:visibility="gone"
             app:tabGravity="fill"
             app:tabMode="fixed"
             app:tabPaddingBottom="0dp"
@@ -47,8 +47,31 @@
             app:tabPaddingStart="0dp"
             app:tabPaddingTop="0dp" />
 
-        <com.www.funone.view.NonSwipableViewPager
-            android:id="@+id/viewpager"
+        <LinearLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_micro"
+            android:layout_below="@+id/layout_post"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/best_comments"
+                layout="@layout/tab_best_comments"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <include
+                android:id="@+id/all_comments"
+                layout="@layout/tab_all_comments"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/content_best_comments"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/tabs" />
