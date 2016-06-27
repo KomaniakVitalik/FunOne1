@@ -21,8 +21,8 @@
 
     <!--BestCommentsActivity-->
     <string name="best_comments">Best comments</string>
-
     <string name="settings">Settings</string>
+    <string name="add_comment_here">Add a comment here…</string>
 
     <string name="title_activity_all_coments">AllComentsActivity</string>
     <string name="dummy_button">Dummy Button</string>
