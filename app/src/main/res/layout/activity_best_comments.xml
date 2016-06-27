@@ -9,8 +9,8 @@
 
 
     <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
         android:id="@+id/app_bar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
@@ -24,11 +24,34 @@
 
     </android.support.design.widget.AppBarLayout>
 
-
-    <include
-        layout="@layout/item_post"
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <include
+            android:id="@+id/layout_post"
+            layout="@layout/item_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_micro"
+            android:layout_below="@+id/layout_post"
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+            app:tabPaddingBottom="0dp"
+            app:tabPaddingEnd="0dp"
+            app:tabPaddingStart="0dp"
+            app:tabPaddingTop="0dp" />
+
+        <com.www.funone.view.NonSwipableViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tabs" />
+
+    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

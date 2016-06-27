@@ -41,11 +41,15 @@
     <dimen name="size_profile_ava">85dp</dimen>
     <dimen name="size_add_profile_photo">20dp</dimen>
 
+    <dimen name="tab_comments_height">24dp</dimen>
+
+
 
     <dimen name="tool_bar_size">112dp</dimen>
     <dimen name="item_hash_tag_header_height">46dp</dimen>
     <dimen name="hash_tag_width">56dp</dimen>
 
     <dimen name="post_image_height">293dp</dimen>
+    <dimen name="post_image_comments_height">237dp</dimen>
 
 </resources>

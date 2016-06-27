@@ -10,6 +10,9 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
@@ -35,6 +38,19 @@ public class BaseActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
         registerInternetChecker();
+    }
+
+    protected void loadFrg(Fragment fragment, int container) {
+        String backStateName = fragment.getClass().getName();
+        FragmentManager manager = getSupportFragmentManager();
+        boolean fragmentPopped = manager.popBackStackImmediate(backStateName, 0);
+
+        if (!fragmentPopped && manager.findFragmentByTag(backStateName) == null) { //fragment not in back stack, create it.
+            FragmentTransaction ft = manager.beginTransaction();
+             ft.replace(container, fragment, backStateName);
+            ft.addToBackStack(backStateName);
+            ft.commit();
+        }
     }
 
     /**

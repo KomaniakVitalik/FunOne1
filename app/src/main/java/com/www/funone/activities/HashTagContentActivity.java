@@ -43,6 +43,7 @@ public class HashTagContentActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setPrimaryStatusBarColor(R.color.colorPrimaryDark);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
