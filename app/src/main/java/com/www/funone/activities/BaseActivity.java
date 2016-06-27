@@ -47,8 +47,23 @@ public class BaseActivity extends AppCompatActivity {
 
         if (!fragmentPopped && manager.findFragmentByTag(backStateName) == null) { //fragment not in back stack, create it.
             FragmentTransaction ft = manager.beginTransaction();
-             ft.replace(container, fragment, backStateName);
+            ft.replace(container, fragment, backStateName);
             ft.addToBackStack(backStateName);
+            ft.commit();
+        }
+    }
+
+    protected void loadFrg(Fragment fragment, int container, boolean useBackStack) {
+        String backStateName = fragment.getClass().getName();
+        FragmentManager manager = getSupportFragmentManager();
+        boolean fragmentPopped = manager.popBackStackImmediate(backStateName, 0);
+
+        if (!fragmentPopped && manager.findFragmentByTag(backStateName) == null) { //fragment not in back stack, create it.
+            FragmentTransaction ft = manager.beginTransaction();
+            ft.replace(container, fragment, backStateName);
+            if (useBackStack) {
+                ft.addToBackStack(backStateName);
+            }
             ft.commit();
         }
     }

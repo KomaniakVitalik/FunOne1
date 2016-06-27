@@ -21,7 +21,7 @@ public class BestCommentsActivity extends BaseActivity implements View.OnClickLi
         setUpToolBar();
         removeIncludedLayoutMarginBottom();
         resizeIncludedLayoutImageView();
-        loadFrg(CommentsFragment.newInstance(), R.id.content_best_comments);
+        loadFrg(CommentsFragment.newInstance(), R.id.content_best_comments,false);
         findViewById(R.id.all_comments).setOnClickListener(this);
         findViewById(R.id.best_comments).setOnClickListener(this);
     }
