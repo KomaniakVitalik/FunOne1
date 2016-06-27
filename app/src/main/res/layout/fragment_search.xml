@@ -8,11 +8,12 @@
         android:id="@+id/lin_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/gray_bg"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/item_hash_tag_height"
+            android:layout_height="@dimen/item_hash_tag_header_height"
             android:padding="@dimen/spacing_normal"
             android:text="@string/popular_hash_tag"
             android:textColor="@color/black" />

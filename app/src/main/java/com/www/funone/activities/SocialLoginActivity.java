@@ -81,6 +81,7 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.rel_facebook_btn_wrapper:
                 startMainActivity();
+                this.finish();
                 break;
             case R.id.google_plus_log_in_button:
                 startMainActivity();

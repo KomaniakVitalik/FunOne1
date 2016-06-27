@@ -52,7 +52,6 @@
                     android:layout_height="?attr/actionBarSize"
                     android:layout_below="@+id/toolbar"
                     android:background="@color/colorPrimary"
-                    android:visibility="gone"
                     app:tabGravity="fill"
                     app:tabIndicatorHeight="4dp"
                     app:tabMode="fixed" />

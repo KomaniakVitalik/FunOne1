@@ -9,8 +9,13 @@ import android.view.View;
 
 import com.www.funone.R;
 import com.www.funone.adapters.GridHashTagContentAdapter;
+import com.www.funone.adapters.SectionedGridRecyclerViewAdapter;
 import com.www.funone.model.HashTag;
+import com.www.funone.model.StubImage;
 import com.www.funone.util.Validator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HashTagContentActivity extends BaseActivity {
 
@@ -54,10 +59,26 @@ public class HashTagContentActivity extends BaseActivity {
 
     private void setUpRecyclerView() {
         RecyclerView recViewGrid = (RecyclerView) findViewById(R.id.rec_view_grid);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
+        recViewGrid.setLayoutManager(gridLayoutManager);
         GridHashTagContentAdapter adapter = new GridHashTagContentAdapter();
-        recViewGrid.setLayoutManager(new GridLayoutManager(this, 3));
-        recViewGrid.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+
+
+        List<SectionedGridRecyclerViewAdapter.Section> sections =
+                new ArrayList<>();
+
+        //Sections
+        sections.add(new SectionedGridRecyclerViewAdapter.Section(0, "Popular", "76,0810 posts"));
+        sections.add(new SectionedGridRecyclerViewAdapter.Section(9, "Newest", "76,0810 posts"));
+        sections.add(new SectionedGridRecyclerViewAdapter.Section(18, "Eldest", "76,0810 posts"));
+
+        SectionedGridRecyclerViewAdapter.Section[] dummy = new SectionedGridRecyclerViewAdapter.Section[sections.size()];
+        SectionedGridRecyclerViewAdapter mSectionedAdapter = new
+                SectionedGridRecyclerViewAdapter(this, R.layout.item_header, R.id.tv_content_type, R.id.tv_posts_count, recViewGrid, adapter);
+        mSectionedAdapter.setSections(sections.toArray(dummy));
+
+        recViewGrid.setAdapter(mSectionedAdapter);
+        mSectionedAdapter.notifyDataSetChanged();
     }
 
 
