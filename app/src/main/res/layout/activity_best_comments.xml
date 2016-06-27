@@ -25,27 +25,17 @@
 
     </android.support.design.widget.AppBarLayout>
 
+
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_height="match_parent">
 
         <include
             android:id="@+id/layout_post"
             layout="@layout/item_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
-        <android.support.design.widget.TabLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/button_height_micro"
-            android:visibility="gone"
-            app:tabGravity="fill"
-            app:tabMode="fixed"
-            app:tabPaddingBottom="0dp"
-            app:tabPaddingEnd="0dp"
-            app:tabPaddingStart="0dp"
-            app:tabPaddingTop="0dp" />
 
         <LinearLayout
             android:id="@+id/tabs"
@@ -74,12 +64,15 @@
             android:id="@+id/content_best_comments"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@+id/chat_field"
             android:layout_below="@+id/tabs" />
 
-        <include layout="@layout/item_chat_field"
+        <include
+            android:id="@+id/chat_field"
+            layout="@layout/item_chat_field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"/>
+            android:layout_alignParentBottom="true" />
 
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
