@@ -1,16 +1,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.www.funone.fragments.CommentsFragment">
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/lv_all_comments"
         android:layout_width="match_parent"
+        android:fillViewport="true"
         android:layout_height="match_parent"
-        android:divider="@null"
-        android:drawSelectorOnTop="true"
         android:background="@color/white"
-        android:dividerHeight="0dp" />
+        android:divider="@null"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </RelativeLayout>

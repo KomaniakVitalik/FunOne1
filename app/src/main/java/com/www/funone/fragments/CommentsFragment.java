@@ -3,6 +3,8 @@ package com.www.funone.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +16,7 @@ import com.www.funone.adapters.AllCommentsAdapter;
 
 public class CommentsFragment extends Fragment {
 
-    private ListView mAllCommentsListView;
+    private RecyclerView mAllCommentsListView;
 
 
     public CommentsFragment() {
@@ -48,7 +50,8 @@ public class CommentsFragment extends Fragment {
      * initialize all views in fragment
      */
     private void getView(View view) {
-        mAllCommentsListView = (ListView) view.findViewById(R.id.lv_all_comments);
+        mAllCommentsListView = (RecyclerView) view.findViewById(R.id.lv_all_comments);
+        mAllCommentsListView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     private void setupView(View view) {

@@ -21,9 +21,10 @@ public class BestCommentsActivity extends BaseActivity implements View.OnClickLi
         setUpToolBar();
         removeIncludedLayoutMarginBottom();
         resizeIncludedLayoutImageView();
-        loadFrg(CommentsFragment.newInstance(), R.id.content_best_comments,false);
+        loadFrg(CommentsFragment.newInstance(), R.id.content_best_comments, false);
         findViewById(R.id.all_comments).setOnClickListener(this);
         findViewById(R.id.best_comments).setOnClickListener(this);
+        setPrimaryStatusBarColor(R.color.colorPrimaryDark);
     }
 
     private void resizeIncludedLayoutImageView() {
@@ -44,10 +45,8 @@ public class BestCommentsActivity extends BaseActivity implements View.OnClickLi
     private void setUpToolBar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(getResString(R.string.best_comments));
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
