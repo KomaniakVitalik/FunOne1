@@ -1,6 +1,7 @@
 package com.www.funone.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.www.funone.R;
+import com.www.funone.activities.BestCommentsActivity;
 import com.www.funone.adapters.ContentRecyclerAdapter;
 import com.www.funone.model.Post;
 
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ContentFragment extends Fragment {
+public class ContentFragment extends Fragment implements ContentRecyclerAdapter.OnPostInteractionListener {
 
     private List<Post> mPostsList = new ArrayList<>();
     private ContentRecyclerAdapter mAdapter;
@@ -53,6 +55,7 @@ public class ContentFragment extends Fragment {
     private void getView(View view) {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rec_view_content);
         mAdapter = new ContentRecyclerAdapter(mPostsList);
+        mAdapter.setOnPostInteractionListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(mAdapter);
 
@@ -72,4 +75,30 @@ public class ContentFragment extends Fragment {
         mAdapter.notifyDataSetChanged();
     }
 
+    private void startBestCommentsActivity(Post post){
+        Intent intent = new Intent(getActivity(), BestCommentsActivity.class);
+        intent.putExtra(BestCommentsActivity.ARG_POST, post);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mAdapter.setOnPostInteractionListener(null);
+    }
+
+    @Override
+    public void onPostLiked(Post post) {
+
+    }
+
+    @Override
+    public void onOpenBestCommentsActivity(Post post) {
+        startBestCommentsActivity(post);
+    }
+
+    @Override
+    public void onOpenMorePage(Post post) {
+
+    }
 }

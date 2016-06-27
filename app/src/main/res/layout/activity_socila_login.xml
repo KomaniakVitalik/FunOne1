@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#3D3C3B"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".activities.SocialLoginActivity">
 
@@ -24,150 +25,155 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
-        android:id="@+id/rel_title_text_wrapper"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_gravity="center"
-        android:orientation="vertical">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <TextView
-            android:id="@+id/tv_fun_one"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/rel_title_text_wrapper"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:layout_gravity="center"
-            android:bufferType="spannable"
-            android:text="@string/app_name"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_title_large"
-            android:textStyle="bold" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_join_have_fun"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/spacing_large"
-            android:bufferType="spannable"
-            android:text="@string/join_and_have_fun"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_title_normal" />
+            <TextView
+                android:id="@+id/tv_fun_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:bufferType="spannable"
+                android:text="@string/app_name"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size_title_large"
+                android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/tv_join_have_fun"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/spacing_large"
+                android:bufferType="spannable"
+                android:text="@string/join_and_have_fun"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size_title_normal" />
+
+
+            <RelativeLayout
+                android:id="@+id/socials_wrapper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_huge"
+                android:layout_marginStart="@dimen/spacing_huge"
+                android:layout_marginTop="@dimen/spacing_huge">
+
+                <RelativeLayout
+                    android:id="@+id/rel_facebook_btn_wrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height_medium"
+                    android:background="@drawable/face_btn_selector">
+
+                    <com.facebook.login.widget.LoginButton xmlns:facebook="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/facebook_login_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/button_height_tall"
+                        android:layout_gravity="center_horizontal"
+                        android:drawablePadding="@dimen/spacing_normal"
+                        android:drawableStart="@null"
+                        android:paddingBottom="@dimen/spacing_small"
+                        android:paddingTop="@dimen/spacing_small"
+                        android:textSize="@dimen/text_size_medium"
+                        android:visibility="gone"
+                        facebook:com_facebook_login_text="@string/com_facebook_loginview_log_out_button" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/com_facebook_loginview_log_out_button"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/text_size_large" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/spacing_large"
+                        android:src="@drawable/f" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/google_plus_log_in_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height_medium"
+                    android:layout_below="@+id/rel_facebook_btn_wrapper"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:background="@drawable/google_btn_selector">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/google"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/text_size_large" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/spacing_large"
+                        android:src="@drawable/g" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/vk_login_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height_medium"
+                    android:layout_below="@+id/google_plus_log_in_button"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:background="@drawable/vk_btn_selector">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/vk"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/text_size_large" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/spacing_large"
+                        android:src="@drawable/vk" />
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
 
         <RelativeLayout
-            android:id="@+id/socials_wrapper"
+            android:id="@+id/rel_terms_of_services"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/spacing_huge"
-            android:layout_marginStart="@dimen/spacing_huge"
-            android:layout_marginTop="@dimen/spacing_huge">
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/spacing_small"
+            android:padding="@dimen/spacing_normal">
 
-            <RelativeLayout
-                android:id="@+id/rel_facebook_btn_wrapper"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/button_height_medium"
-                android:background="@drawable/face_btn_selector">
-
-                <com.facebook.login.widget.LoginButton xmlns:facebook="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/facebook_login_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/button_height_tall"
-                    android:layout_gravity="center_horizontal"
-                    android:drawablePadding="@dimen/spacing_normal"
-                    android:drawableStart="@null"
-                    android:paddingBottom="@dimen/spacing_small"
-                    android:paddingTop="@dimen/spacing_small"
-                    android:textSize="@dimen/text_size_medium"
-                    android:visibility="gone"
-                    facebook:com_facebook_login_text="@string/com_facebook_loginview_log_out_button" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="@string/com_facebook_loginview_log_out_button"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_large" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/spacing_large"
-                    android:src="@drawable/f" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/google_plus_log_in_button"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/button_height_medium"
-                android:layout_below="@+id/rel_facebook_btn_wrapper"
-                android:layout_marginTop="@dimen/spacing_normal"
-                android:background="@drawable/google_btn_selector">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="@string/google"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_large" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/spacing_large"
-                    android:src="@drawable/g" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/vk_login_btn"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/button_height_medium"
-                android:layout_below="@+id/google_plus_log_in_button"
-                android:layout_marginTop="@dimen/spacing_normal"
-                android:background="@drawable/vk_btn_selector">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="@string/vk"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_large" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/spacing_large"
-                    android:src="@drawable/vk" />
-            </RelativeLayout>
-
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/terms_privacy_policy"
+                android:textColor="@android:color/white" />
         </RelativeLayout>
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/rel_terms_of_services"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/spacing_small"
-        android:padding="@dimen/spacing_normal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/terms_privacy_policy"
-            android:textColor="@android:color/white" />
     </RelativeLayout>
-
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

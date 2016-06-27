@@ -51,6 +51,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mBarLayout.setExpanded(false);
         mTvToolBarTitle = (TextView) findViewById(R.id.tv_main_activity_title);
         setToolBarTitleText(getResString(R.string.search));
+        setPrimaryStatusBarColor(R.color.colorPrimaryDark);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -6,6 +6,7 @@
 
     <!--SocialLoginActivity-->
     <string name="log_in">Log In</string>
+    <string name="best_comments">Best comments</string>
     <string name="com_facebook_loginview_log_out_button">Facebook</string>
     <string name="join_and_have_fun">Join us and have more fun</string>
     <string name="terms_privacy_policy">Terms of Service and Private Police</string>

@@ -2,6 +2,7 @@ package com.www.funone.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.style.ForegroundColorSpan;
@@ -25,6 +26,7 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
         setUpToolBar();
         setTitleTypeFace();
         setUpView();
+        setPrimaryStatusBarColor(R.color.black);
     }
 
     /**
@@ -72,7 +74,8 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
      * Starts Main Activity after successful log in
      */
     private void startMainActivity() {
-        startActivity(new Intent(this, MainActivity.class));
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
 
@@ -81,7 +84,6 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.rel_facebook_btn_wrapper:
                 startMainActivity();
-                this.finish();
                 break;
             case R.id.google_plus_log_in_button:
                 startMainActivity();

@@ -21,6 +21,11 @@ import java.util.List;
  */
 public class ContentRecyclerAdapter extends RecyclerView.Adapter<ContentRecyclerAdapter.ContentPostViewHolder> {
 
+    private static final int LIKED = 1;
+    private static final int OPEN_COMMENTS_PAGE = 2;
+    private static final int OPEN_MORE_PAGE = 3;
+
+    private OnPostInteractionListener listener;
     private List<Post> mPostsList = new ArrayList<>();
 
     public ContentRecyclerAdapter(List<Post> mPostsList) {
@@ -30,7 +35,7 @@ public class ContentRecyclerAdapter extends RecyclerView.Adapter<ContentRecycler
     @Override
     public ContentPostViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_post, parent, false);
-        return new ContentPostViewHolder(view);
+        return new ContentPostViewHolder(this, view);
     }
 
     @Override
@@ -45,6 +50,7 @@ public class ContentRecyclerAdapter extends RecyclerView.Adapter<ContentRecycler
 
     static class ContentPostViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        ContentRecyclerAdapter adapter;
         Context context;
         TextView tvCommentsCount;
         TextView tvLikesCount;
@@ -53,9 +59,10 @@ public class ContentRecyclerAdapter extends RecyclerView.Adapter<ContentRecycler
         ImageView ivLike;
         Post post;
 
-        public ContentPostViewHolder(View itemView) {
+        public ContentPostViewHolder(ContentRecyclerAdapter adapter, View itemView) {
             super(itemView);
             context = itemView.getContext();
+            this.adapter = adapter;
             itemView.findViewById(R.id.iv_btn_more).setOnClickListener(this);
             itemView.findViewById(R.id.lin_comments_wrapper).setOnClickListener(this);
 
@@ -87,6 +94,7 @@ public class ContentRecyclerAdapter extends RecyclerView.Adapter<ContentRecycler
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.iv_btn_more:
+                    adapter.notifyPostInteraction(post, ContentRecyclerAdapter.OPEN_MORE_PAGE);
                     break;
                 case R.id.iv_like:
                     if (!post.isLiked()) {
@@ -96,11 +104,44 @@ public class ContentRecyclerAdapter extends RecyclerView.Adapter<ContentRecycler
                         post.setLiked(false);
                         setPostLiked(false);
                     }
+                    adapter.notifyPostInteraction(post, ContentRecyclerAdapter.LIKED);
                     break;
                 case R.id.lin_comments_wrapper:
+                    adapter.notifyPostInteraction(post, ContentRecyclerAdapter.OPEN_COMMENTS_PAGE);
                     break;
             }
         }
+    }
+
+
+    public void setOnPostInteractionListener(OnPostInteractionListener listener) {
+        this.listener = listener;
+    }
+
+    private void notifyPostInteraction(Post post, int type) {
+        if (Validator.isObjectValid(listener)) {
+            if (Validator.isObjectValid(post)) {
+                switch (type) {
+                    case LIKED:
+                        listener.onPostLiked(post);
+                        break;
+                    case OPEN_COMMENTS_PAGE:
+                        listener.onOpenBestCommentsActivity(post);
+                        break;
+                    case OPEN_MORE_PAGE:
+                        listener.onOpenMorePage(post);
+                        break;
+                }
+            }
+        }
+    }
+
+    public interface OnPostInteractionListener {
+        void onPostLiked(Post post);
+
+        void onOpenBestCommentsActivity(Post post);
+
+        void onOpenMorePage(Post post);
     }
 
 
