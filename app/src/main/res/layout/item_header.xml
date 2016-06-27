@@ -11,7 +11,9 @@
         android:id="@+id/tv_content_type"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_hash_tag_header_height"
-        android:padding="@dimen/spacing_normal"
+        android:paddingStart="@dimen/spacing_20"
+        android:layout_toStartOf="@+id/tv_posts_count"
+        android:gravity="center_vertical"
         android:textColor="@color/hint_gray" />
 
     <TextView
@@ -20,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="@dimen/spacing_large"
+        android:layout_marginEnd="@dimen/spacing_20"
         android:textColor="@color/hint_gray" />
 
 </RelativeLayout>
