@@ -24,7 +24,7 @@
     <dimen name="spacing_20">20dp</dimen>
     <dimen name="spacing_normal">14dp</dimen>
     <dimen name="spacing_small">10dp</dimen>
-    <dimen name="spacing_tiny">4dp</dimen>
+    <dimen name="spacing_tiny">3dp</dimen>
 
     <dimen name="spacing_exclamation">24dp</dimen>
 
