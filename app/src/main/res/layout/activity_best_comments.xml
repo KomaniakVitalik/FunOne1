@@ -80,17 +80,19 @@
             android:id="@+id/content_best_comments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tabs" />
+            android:layout_below="@+id/tabs"
+            android:layout_marginBottom="@dimen/button_height_short" />
 
 
     </RelativeLayout>
 
     <include
         android:id="@+id/chat_field"
-        layout="@layout/item_chat_field"
+        layout="@layout/item_chat_input_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/content_best_comments" />
+        android:layout_below="@+id/content_best_comments"
+        android:layout_gravity="bottom" />
+
 </android.support.design.widget.CoordinatorLayout>
