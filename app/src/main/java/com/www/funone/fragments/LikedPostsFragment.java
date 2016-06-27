@@ -2,26 +2,24 @@ package com.www.funone.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.www.funone.R;
+import com.www.funone.adapters.LikedPostsAdapter;
+import com.www.funone.util.SpacesItemDecoration;
 
 public class LikedPostsFragment extends Fragment {
+
+    private View mView;
+
     public LikedPostsFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment LikedPostsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static LikedPostsFragment newInstance(String param1, String param2) {
         LikedPostsFragment fragment = new LikedPostsFragment();
         Bundle args = new Bundle();
@@ -39,13 +37,29 @@ public class LikedPostsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_liked_posts, container, false);
+        mView = inflater.inflate(R.layout.fragment_liked_posts, container, false);
+        setupView();
+        return mView;
     }
 
+    private void initView() {
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
+    }
+
+    private void setupView() {
+        initView();
+
+        setUpRecyclerView();
+    }
+
+    private void setUpRecyclerView() {
+        RecyclerView recViewGrid = (RecyclerView) mView.findViewById(R.id.rec_view_liked_posts);
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing_tiny);
+        recViewGrid.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
+        LikedPostsAdapter adapter = new LikedPostsAdapter();
+        recViewGrid.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        recViewGrid.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
 }

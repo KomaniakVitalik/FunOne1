@@ -17,6 +17,7 @@ public class Pref {
     private static final String PREF_NAME = "fun_one";
 
     public static final String PREF_UID = "uid";
+    public static final String APP_SETTINGS_KEY = "APP_SETTINGS_KEY";
 
     private static SharedPreferences sPref;
     private static SharedPreferences.Editor edit;

@@ -186,8 +186,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            startActivity(new Intent(this, AllCommentActivity.class));
+        if (id == R.id.settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
 
