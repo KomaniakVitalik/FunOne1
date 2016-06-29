@@ -109,7 +109,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/iv_btn_more"
+            android:id="@+id/iv_btn_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

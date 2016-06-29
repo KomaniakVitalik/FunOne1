@@ -20,6 +20,10 @@
     <string name="fun_search_hint">FunOne search</string>
     <string name="popular_hash_tag">Popular hashtag</string>
 
+    <!--SHARE-->
+    <string name="share">Share…</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
 
     <!--BestCommentsActivity-->
     <string name="best_comments">Best comments</string>

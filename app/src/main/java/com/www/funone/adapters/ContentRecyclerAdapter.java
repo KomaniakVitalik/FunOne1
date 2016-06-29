@@ -23,7 +23,7 @@ public class ContentRecyclerAdapter extends RecyclerView.Adapter<ContentRecycler
 
     private static final int LIKED = 1;
     private static final int OPEN_COMMENTS_PAGE = 2;
-    private static final int OPEN_MORE_PAGE = 3;
+    private static final int OPEN_SHARE_LAYOU = 3;
 
     private OnPostInteractionListener listener;
     private List<Post> mPostsList = new ArrayList<>();
@@ -63,7 +63,7 @@ public class ContentRecyclerAdapter extends RecyclerView.Adapter<ContentRecycler
             super(itemView);
             context = itemView.getContext();
             this.adapter = adapter;
-            itemView.findViewById(R.id.iv_btn_more).setOnClickListener(this);
+            itemView.findViewById(R.id.iv_btn_share).setOnClickListener(this);
             itemView.findViewById(R.id.lin_comments_wrapper).setOnClickListener(this);
 
             tvRelatedHashTags = (TextView) itemView.findViewById(R.id.tv_related_hash_tags);
@@ -93,8 +93,8 @@ public class ContentRecyclerAdapter extends RecyclerView.Adapter<ContentRecycler
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.iv_btn_more:
-                    adapter.notifyPostInteraction(post, ContentRecyclerAdapter.OPEN_MORE_PAGE);
+                case R.id.iv_btn_share:
+                    adapter.notifyPostInteraction(post, ContentRecyclerAdapter.OPEN_SHARE_LAYOU);
                     break;
                 case R.id.iv_like:
                     if (!post.isLiked()) {
@@ -128,8 +128,8 @@ public class ContentRecyclerAdapter extends RecyclerView.Adapter<ContentRecycler
                     case OPEN_COMMENTS_PAGE:
                         listener.onOpenBestCommentsActivity(post);
                         break;
-                    case OPEN_MORE_PAGE:
-                        listener.onOpenMorePage(post);
+                    case OPEN_SHARE_LAYOU:
+                        listener.onOpenShareLayout(post);
                         break;
                 }
             }
@@ -141,7 +141,7 @@ public class ContentRecyclerAdapter extends RecyclerView.Adapter<ContentRecycler
 
         void onOpenBestCommentsActivity(Post post);
 
-        void onOpenMorePage(Post post);
+        void onOpenShareLayout(Post post);
     }
 
 

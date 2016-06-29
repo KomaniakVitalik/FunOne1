@@ -28,10 +28,13 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    repositories {
+        mavenCentral()
+    }
+
     testCompile 'junit:junit:4.12'
 
-
-
+    compile 'com.sothree.slidinguppanel:library:3.3.0'
     compile 'com.android.support:appcompat-v7:24.0.0'
     compile 'com.android.support:design:24.0.0'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
