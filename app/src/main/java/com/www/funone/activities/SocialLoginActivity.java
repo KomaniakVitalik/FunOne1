@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.login.widget.LoginButton;
+import com.www.funone.CoreApp;
 import com.www.funone.R;
 import com.www.funone.managers.AuthenticationManager;
 import com.www.funone.model.User;
@@ -26,7 +27,7 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAuthenticationManager = AuthenticationManager.getInstance();
+        mAuthenticationManager = CoreApp.getInstance().getAuthenticationManager();
         mAuthenticationManager.addLogInListener(this);
         setContentView(R.layout.activity_socila_login);
         setUpToolBar();
@@ -108,6 +109,12 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mAuthenticationManager.addLogInListener(null);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         AuthenticationManager.getInstance().onActivityResult(requestCode, resultCode, data);
@@ -121,16 +128,17 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.google_plus_log_in_button:
                 //startMainActivity();
+                mAuthenticationManager.logInVia(SocialLoginActivity.this, AuthenticationManager.GOOGLE);
                 break;
             case R.id.vk_login_btn:
-                //startMainActivity();
+                mAuthenticationManager.logInVia(SocialLoginActivity.this, AuthenticationManager.VK);
                 break;
             case R.id.rel_terms_of_services:
                 Toast.makeText(SocialLoginActivity.this, getResString(R.string.terms_privacy_policy)
                         , Toast.LENGTH_SHORT).show();
                 break;
         }
-        setButtonListeners(null);
+       // setButtonListeners(null);
     }
 
 

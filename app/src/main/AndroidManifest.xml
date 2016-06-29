@@ -15,7 +15,6 @@
         android:theme="@style/AppTheme">
 
 
-
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
@@ -58,6 +57,13 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        //----------------------------
+
+        //VK Log IN
+        <activity
+            android:name="com.vk.sdk.VKServiceActivity"
+            android:label="ServiceActivity"
+            android:theme="@style/VK.Transparent" />
         //----------------------------
 
     </application>

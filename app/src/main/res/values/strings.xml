@@ -5,6 +5,8 @@
 
     <!--Social -->
     <string name="dev_facebook_app_id">150270962047781</string>
+    <integer name="com_vk_sdk_AppId">5527319</integer>
+    <string name="dev_google_app_id">742452319674-bfd0rfch3kv1v5d6g1t44dgbeipa5pb5.apps.googleusercontent.com</string>
 
     <!--SocialLoginActivity-->
     <string name="log_in">Log In</string>
