@@ -92,16 +92,19 @@ public class ViewPagerManager implements TabLayout.OnTabSelectedListener,
                     tab.setIcon(TAB_ICS_SELECTED[pos]);
                     mActivity.collapseToolBar();
                     mPreviousSelectedPosition = pos;
+                    mActivity.hideKeyboard();
                     break;
                 case 1:
                     //mActivity.startActivity(new Intent(mActivity, SearchActivity.class));
                     tab.setIcon(TAB_ICS_SELECTED[pos]);
                     mActivity.expandToolBar();
+                    mActivity.hideKeyboard();
                     break;
                 case 2:
                     tab.setIcon(TAB_ICS_SELECTED[pos]);
                     mActivity.collapseToolBar();
                     mPreviousSelectedPosition = pos;
+                    mActivity.hideKeyboard();
                     break;
             }
         }
