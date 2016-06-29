@@ -39,6 +39,7 @@ public class AllCommentActivity extends BaseActivity {
                 onBackPressed();
             }
         });
+        initToolBarSettingsButton();
     }
 
     @Override
@@ -57,14 +58,14 @@ public class AllCommentActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        return false;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.settings) {
+        if (id == R.id.menu_save) {
             startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }

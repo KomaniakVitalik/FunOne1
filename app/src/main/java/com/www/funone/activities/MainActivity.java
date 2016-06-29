@@ -48,6 +48,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     //ToolBar start region
     private void setUpToolBar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        initToolBarSettingsButton();
         setSupportActionBar(mToolbar);
         mBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
         setNestedToolBarScrollEnabled(false);
@@ -199,15 +200,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        mToolbar.getMenu().clear();
+
+        //getMenuInflater().inflate(R.menu.menu_main, menu);
+        return false;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         int id = item.getItemId();
 
-        if (id == R.id.settings) {
+        if (id == R.id.menu_save) {
             startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }

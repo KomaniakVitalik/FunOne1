@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             app:contentScrim="@color/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
-            
+
             <include
                 android:id="@+id/layout_post"
                 layout="@layout/item_app_bar_view_pager"
@@ -43,6 +43,16 @@
                     android:layout_height="wrap_content"
                     android:text="@string/best_comments"
                     android:visibility="visible" />
+
+                <ImageButton
+                    android:id="@+id/settings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:background="@null"
+                    android:padding="@dimen/spacing_normal"
+                    android:src="@drawable/settings" />
+
             </android.support.v7.widget.Toolbar>
 
 

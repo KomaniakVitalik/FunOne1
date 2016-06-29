@@ -1,12 +1,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activities.MainActivity">
 
+
     <item
-        android:id="@+id/settings"
+        android:id="@+id/menu_save"
+        android:icon="@drawable/settings"
+        android:showAsAction="never"
+        android:visible="true"
         android:orderInCategory="100"
-        android:icon="@drawable/vk"
-        android:title="@string/google"
-        android:showAsAction="always"/>
+        android:title="@string/settings" />
+
+    <item
+        android:id="@+id/m"
+        android:icon="@drawable/f"
+        android:showAsAction="ifRoom"
+        android:visible="true"
+        android:orderInCategory="400"
+        android:title="@string/app_name" />
+
+
 </menu>
+
