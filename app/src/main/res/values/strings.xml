@@ -2,7 +2,9 @@
 
     <string name="app_name">Fun One</string>
     <string name="action_settings">Settings</string>
-    <string name="test_facebook_app_id">148737502201127</string>
+
+    <!--Social -->
+    <string name="dev_facebook_app_id">150270962047781</string>
 
     <!--SocialLoginActivity-->
     <string name="log_in">Log In</string>
@@ -47,5 +49,9 @@
     <string name="connected">Подключен</string>
     <string name="disconnect">Отключен</string>
     <string name="logout"><u>Выйти</u></string>
+
+    <!--ERRORS-->
+    <string name="err_log_in">Error has occurred while logging in with </string>
+
 
 </resources>

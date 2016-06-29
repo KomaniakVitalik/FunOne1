@@ -12,16 +12,22 @@ import android.widget.Toast;
 
 import com.facebook.login.widget.LoginButton;
 import com.www.funone.R;
+import com.www.funone.managers.AuthenticationManager;
+import com.www.funone.model.User;
+import com.www.funone.util.Logger;
 
-public class SocialLoginActivity extends BaseActivity implements View.OnClickListener {
+public class SocialLoginActivity extends BaseActivity implements View.OnClickListener, AuthenticationManager.OnSocialLogInListener {
 
+    public static final String TAG = "SocialLoginActivity";
     public static final String FONT_LUCIDA = "lucida-grande-bold.ttf";
 
-    private LoginButton mFaceLogInButton;
+    private AuthenticationManager mAuthenticationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAuthenticationManager = AuthenticationManager.getInstance();
+        mAuthenticationManager.addLogInListener(this);
         setContentView(R.layout.activity_socila_login);
         setUpToolBar();
         setTitleTypeFace();
@@ -33,7 +39,6 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
      * Initializes All the views
      */
     private void setUpView() {
-        mFaceLogInButton = (LoginButton) findViewById(R.id.facebook_login_button);
         setButtonListeners(this);
     }
 
@@ -78,12 +83,40 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
         startActivity(intent);
     }
 
+    /**
+     * Shows Error toast basing on social network error response
+     *
+     * @param socialNetworkKey - social network AuthenticationManager key
+     */
+    private void showErrorToast(int socialNetworkKey) {
+        String baseBody = getResString(R.string.err_log_in);
+        switch (socialNetworkKey) {
+            case AuthenticationManager.FACEBOOK:
+                baseBody = baseBody + getResString(R.string.facebook);
+                TOAST(baseBody);
+                break;
+            case AuthenticationManager.GOOGLE:
+                baseBody = baseBody + getResString(R.string.google);
+                TOAST(baseBody);
+                break;
+            case AuthenticationManager.VK:
+                baseBody = baseBody + getResString(R.string.vk);
+                TOAST(baseBody);
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        AuthenticationManager.getInstance().onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rel_facebook_btn_wrapper:
-                startMainActivity();
+                mAuthenticationManager.logInVia(SocialLoginActivity.this, AuthenticationManager.FACEBOOK);
                 break;
             case R.id.google_plus_log_in_button:
                 startMainActivity();
@@ -97,5 +130,16 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
                 break;
         }
         setButtonListeners(null);
+    }
+
+
+    @Override
+    public void onLogInSuccess(int socialNetworkKey, User user) {
+        Logger.d(TAG, user.toString());
+    }
+
+    @Override
+    public void onLogInError(int socialNetworkKey) {
+        showErrorToast(socialNetworkKey);
     }
 }

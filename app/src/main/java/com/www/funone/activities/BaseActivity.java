@@ -21,6 +21,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.www.funone.R;
 import com.www.funone.util.Logger;
@@ -86,6 +87,14 @@ public class BaseActivity extends AppCompatActivity {
 
     protected void applyCustomFont(TextView tv, String typeFaceLocation) {
         tv.setTypeface(Typeface.createFromAsset(getAssets(), typeFaceLocation));
+    }
+
+    protected void TOAST(String msg) {
+        Toast.makeText(BaseActivity.this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    protected void TOAST(int msg) {
+        Toast.makeText(BaseActivity.this, getResString(msg), Toast.LENGTH_SHORT).show();
     }
 
     /**

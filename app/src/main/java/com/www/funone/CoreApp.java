@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.facebook.FacebookSdk;
 import com.google.gson.Gson;
+import com.www.funone.api.RetrofitRequest;
 import com.www.funone.util.AppSettings;
 import com.www.funone.util.Pref;
 
@@ -14,16 +15,19 @@ public class CoreApp extends Application {
 
     private static CoreApp instance;
     private AppSettings appSettings;
+    private RetrofitRequest retrofitRequest;
 
     @Override
     public void onCreate() {
         super.onCreate();
         FacebookSdk.sdkInitialize(this);
         instance = this;
+        retrofitRequest = new RetrofitRequest();
 
-        if(Pref.getString(Pref.APP_SETTINGS_KEY) == null) {
+
+        if (Pref.getString(Pref.APP_SETTINGS_KEY) == null) {
             appSettings = new AppSettings();
-        }else {
+        } else {
             appSettings = new Gson().fromJson(Pref.getString(Pref.APP_SETTINGS_KEY), AppSettings.class);
         }
     }
@@ -38,5 +42,9 @@ public class CoreApp extends Application {
 
     public void setAppSettings(AppSettings appSettings) {
         this.appSettings = appSettings;
+    }
+
+    public RetrofitRequest getRequestBuilder() {
+        return retrofitRequest;
     }
 }

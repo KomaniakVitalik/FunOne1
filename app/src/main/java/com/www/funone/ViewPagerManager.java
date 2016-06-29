@@ -76,8 +76,8 @@ public class ViewPagerManager implements TabLayout.OnTabSelectedListener,
         }
     }
 
-    public void returnToPreviousTab(){
-        if(mPreviousSelectedPosition != -1){
+    public void returnToPreviousTab() {
+        if (mPreviousSelectedPosition != -1) {
             mViewPager.setCurrentItem(mPreviousSelectedPosition);
         }
     }
@@ -95,7 +95,6 @@ public class ViewPagerManager implements TabLayout.OnTabSelectedListener,
                     mActivity.hideKeyboard();
                     break;
                 case 1:
-                    //mActivity.startActivity(new Intent(mActivity, SearchActivity.class));
                     tab.setIcon(TAB_ICS_SELECTED[pos]);
                     mActivity.expandToolBar();
                     mActivity.hideKeyboard();
