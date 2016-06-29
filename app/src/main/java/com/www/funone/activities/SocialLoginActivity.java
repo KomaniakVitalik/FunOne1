@@ -15,6 +15,7 @@ import com.www.funone.R;
 import com.www.funone.managers.AuthenticationManager;
 import com.www.funone.model.User;
 import com.www.funone.util.Logger;
+import com.www.funone.util.Pref;
 
 public class SocialLoginActivity extends BaseActivity implements View.OnClickListener, AuthenticationManager.OnSocialLogInListener {
 
@@ -107,6 +108,10 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
+    private void registerStubbedLogIn() {
+        Pref.setBoolean(Pref.PREF_USER_LOGGED_IN, true);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -118,12 +123,15 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.rel_facebook_btn_wrapper:
                 //mAuthenticationManager.logInVia(SocialLoginActivity.this, AuthenticationManager.FACEBOOK);
+                registerStubbedLogIn();
                 startMainActivity();
                 break;
             case R.id.google_plus_log_in_button:
+                registerStubbedLogIn();
                 startMainActivity();
                 break;
             case R.id.vk_login_btn:
+                registerStubbedLogIn();
                 startMainActivity();
                 break;
             case R.id.rel_terms_of_services:

@@ -1,9 +1,11 @@
 package com.www.funone.fragments;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,9 +16,10 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.www.funone.R;
 import com.www.funone.activities.AllCommentActivity;
 import com.www.funone.activities.BestCommentsActivity;
+import com.www.funone.activities.SocialLoginActivity;
 import com.www.funone.adapters.ContentRecyclerAdapter;
 import com.www.funone.model.Post;
-import com.www.funone.util.Logger;
+import com.www.funone.util.Pref;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,6 +110,34 @@ public class ContentFragment extends Fragment implements ContentRecyclerAdapter.
         }
     }
 
+    private void startAuthorizationNeededAlert() {
+        if (!isUserLoggedIn()) {
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("Authorization required")
+                    .setMessage("In order to make changes - you have to be an authorized user")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            startSocialLogInActivity();
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .show();
+        }
+    }
+
+    private boolean isUserLoggedIn() {
+        return Pref.getBoolean(Pref.PREF_USER_LOGGED_IN);
+    }
+
+    private void startSocialLogInActivity() {
+        getActivity().finish();
+        getActivity().startActivity(new Intent(getActivity(), SocialLoginActivity.class));
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -115,17 +146,21 @@ public class ContentFragment extends Fragment implements ContentRecyclerAdapter.
 
     @Override
     public void onPostLiked(Post post) {
-
+        startAuthorizationNeededAlert();
     }
 
     @Override
     public void onOpenBestCommentsActivity(Post post) {
-        startBestCommentsActivity(post);
+        if (isUserLoggedIn()) {
+            startBestCommentsActivity(post);
+        }
+        startAuthorizationNeededAlert();
     }
 
     @Override
     public void onOpenShareLayout(Post post) {
         showOrHideShareLayout();
+        startAuthorizationNeededAlert();
     }
 
     @Override
