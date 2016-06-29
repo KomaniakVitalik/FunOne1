@@ -81,6 +81,7 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
     private void startMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        this.finish();
     }
 
     /**
