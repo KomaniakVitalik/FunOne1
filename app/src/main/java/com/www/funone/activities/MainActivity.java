@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import com.www.funone.R;
 import com.www.funone.ViewPagerManager;
+import com.www.funone.util.Logger;
+import com.www.funone.util.Validator;
 import com.www.funone.util.ViewUtil;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -29,6 +31,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ViewPagerManager mViewPagerManager;
     private EditText mEdSearch;
     private Toolbar mToolbar;
+    private boolean searchGridShown = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,6 +165,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             }
         });
+        mEdSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    Logger.d(TAG, "Has focus");
+                }
+            }
+        });
+    }
+
+    public void addSearchFocusListener(View.OnFocusChangeListener focusChangeListener) {
+        mEdSearch.setOnFocusChangeListener(focusChangeListener);
     }
 
     /**********************************************************************************************/
@@ -169,8 +184,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onBackPressed() {
         if (toolBarExpanded) {
-            collapseToolBar();
-            mViewPagerManager.returnToPreviousTab();
+            if (searchGridShown) {
+                collapseToolBar();
+                mViewPagerManager.returnToPreviousTab();
+            } else {
+                if (Validator.isObjectValid(gridHashTagsListener)) {
+                    gridHashTagsListener.onHide();
+                }
+            }
         } else {
             super.onBackPressed();
         }
@@ -201,5 +222,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 mEdSearch.setText("");
                 break;
         }
+    }
+
+
+    OnHideHashTagsListener gridHashTagsListener;
+
+    public void addHideHashTagListener(OnHideHashTagsListener listener) {
+        this.gridHashTagsListener = listener;
+    }
+
+    public interface OnHideHashTagsListener {
+        void onHide();
+    }
+
+    public void setSearchGridShown(boolean searchGridShown) {
+        this.searchGridShown = searchGridShown;
+    }
+
+    public boolean isSearchGridShown() {
+        return searchGridShown;
     }
 }

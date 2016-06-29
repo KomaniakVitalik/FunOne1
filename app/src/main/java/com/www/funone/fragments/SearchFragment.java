@@ -4,7 +4,7 @@ package com.www.funone.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,17 +14,25 @@ import android.widget.Toast;
 
 import com.www.funone.R;
 import com.www.funone.activities.HashTagContentActivity;
+import com.www.funone.activities.MainActivity;
+import com.www.funone.adapters.GridHashTagContentAdapter;
 import com.www.funone.adapters.HashTagRecyclerAdapter;
+import com.www.funone.adapters.SectionedGridRecyclerViewAdapter;
 import com.www.funone.model.HashTag;
+import com.www.funone.util.Validator;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class SearchFragment extends Fragment implements HashTagRecyclerAdapter.OnHashTagClickListener {
+public class SearchFragment extends Fragment implements HashTagRecyclerAdapter.OnHashTagClickListener, MainActivity.OnHideHashTagsListener {
 
-    private HashTagRecyclerAdapter mAdapter;
+
+    private HashTagRecyclerAdapter mHashTagAdapter;
+    private GridHashTagContentAdapter mGridHashTagAdapter;
     private List<HashTag> mHashTags = new ArrayList<>();
+    private RecyclerView mRecyclerView;
+    private MainActivity mainActivity;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -41,7 +49,8 @@ public class SearchFragment extends Fragment implements HashTagRecyclerAdapter.O
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        mainActivity = (MainActivity) getActivity();
+        mainActivity.addHideHashTagListener(this);
     }
 
     @Override
@@ -55,22 +64,60 @@ public class SearchFragment extends Fragment implements HashTagRecyclerAdapter.O
     }
 
     private void getView(View view) {
-        RecyclerView recViewSearch = (RecyclerView) view.findViewById(R.id.rec_view_search);
-        recViewSearch.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAdapter = new HashTagRecyclerAdapter(mHashTags);
-        mAdapter.setOnHashTagClickListener(this);
-        recViewSearch.setAdapter(mAdapter);
-//        ViewCompat.setNestedScrollingEnabled(recViewSearch, false);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.rec_view_search);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        initGridHashTagAdapter();
+        initSearchFocusListener();
+    }
 
-        //TODO
+    private void initSearchFocusListener() {
+        ((MainActivity) getActivity()).addSearchFocusListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    initHashTagAdapter();
+                }
+            }
+        });
+    }
+
+    private void initHashTagAdapter() {
+        mainActivity.setSearchGridShown(false);
+        mHashTagAdapter = new HashTagRecyclerAdapter(mHashTags);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mHashTagAdapter.setOnHashTagClickListener(this);
+        mRecyclerView.setAdapter(mHashTagAdapter);
         stubData();
+        mHashTagAdapter.notifyDataSetChanged();
+    }
 
+    private void initGridHashTagAdapter() {
+        mainActivity.setSearchGridShown(true);
+        mGridHashTagAdapter = new GridHashTagContentAdapter();
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        List<SectionedGridRecyclerViewAdapter.Section> sections =
+                new ArrayList<>();
+
+        //Sections
+        sections.add(new SectionedGridRecyclerViewAdapter.Section(0, "Popular", "76,0810 posts"));
+        sections.add(new SectionedGridRecyclerViewAdapter.Section(9, "Newest", "76,0810 posts"));
+        sections.add(new SectionedGridRecyclerViewAdapter.Section(18, "Eldest", "76,0810 posts"));
+
+        SectionedGridRecyclerViewAdapter.Section[] dummy = new SectionedGridRecyclerViewAdapter.Section[sections.size()];
+
+        SectionedGridRecyclerViewAdapter mSectionedAdapter = new
+                SectionedGridRecyclerViewAdapter(getContext(), R.layout.item_header, R.id.tv_content_type,
+                R.id.tv_posts_count, mRecyclerView, mGridHashTagAdapter);
+
+        mSectionedAdapter.setSections(sections.toArray(dummy));
+
+        mRecyclerView.setAdapter(mSectionedAdapter);
     }
 
     private void updateAdapter(List<HashTag> tags) {
         mHashTags.clear();
         mHashTags.addAll(tags);
-        mAdapter.notifyDataSetChanged();
+        mHashTagAdapter.notifyDataSetChanged();
     }
 
     private void stubData() {
@@ -92,12 +139,20 @@ public class SearchFragment extends Fragment implements HashTagRecyclerAdapter.O
 
     @Override
     public void onDestroy() {
+        mainActivity.addHideHashTagListener(null);
+        if (Validator.isObjectValid(mHashTagAdapter)) {
+            mHashTagAdapter.setOnHashTagClickListener(null);
+        }
         super.onDestroy();
-        mAdapter.setOnHashTagClickListener(null);
     }
 
     @Override
     public void onHashTagClicked(HashTag tag) {
         startHashTagContentActivity(tag);
+    }
+
+    @Override
+    public void onHide() {
+        initGridHashTagAdapter();
     }
 }

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.www.funone.R;
+import com.www.funone.activities.AllCommentActivity;
 import com.www.funone.activities.BestCommentsActivity;
 import com.www.funone.adapters.ContentRecyclerAdapter;
 import com.www.funone.model.Post;
@@ -125,6 +126,11 @@ public class ContentFragment extends Fragment implements ContentRecyclerAdapter.
     @Override
     public void onOpenShareLayout(Post post) {
         showOrHideShareLayout();
+    }
+
+    @Override
+    public void onOpenALLComments(Post post) {
+        getActivity().startActivity(new Intent(getActivity(), AllCommentActivity.class));
     }
 
     @Override
