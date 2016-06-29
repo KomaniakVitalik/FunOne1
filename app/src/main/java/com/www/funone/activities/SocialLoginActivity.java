@@ -78,8 +78,9 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
     /**
      * Starts Main Activity after successful log in
      */
-    private void startMainActivity() {
+    private void startMainActivity(User user) {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(MainActivity.ARG_USER, user);
         startActivity(intent);
     }
 
@@ -119,10 +120,10 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
                 mAuthenticationManager.logInVia(SocialLoginActivity.this, AuthenticationManager.FACEBOOK);
                 break;
             case R.id.google_plus_log_in_button:
-                startMainActivity();
+                //startMainActivity();
                 break;
             case R.id.vk_login_btn:
-                startMainActivity();
+                //startMainActivity();
                 break;
             case R.id.rel_terms_of_services:
                 Toast.makeText(SocialLoginActivity.this, getResString(R.string.terms_privacy_policy)
@@ -136,6 +137,7 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onLogInSuccess(int socialNetworkKey, User user) {
         Logger.d(TAG, user.toString());
+        startMainActivity(user);
     }
 
     @Override

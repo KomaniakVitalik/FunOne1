@@ -17,11 +17,13 @@ import android.widget.TextView;
 
 import com.www.funone.R;
 import com.www.funone.ViewPagerManager;
+import com.www.funone.model.User;
 import com.www.funone.util.ViewUtil;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     public static final String TAG = "MainActivity";
+    public static final String ARG_USER = "user";
 
     private AppBarLayout mBarLayout;
     private TextView mTvToolBarTitle;
@@ -29,10 +31,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ViewPagerManager mViewPagerManager;
     private EditText mEdSearch;
     private Toolbar mToolbar;
+    private User mCurrentUser = new User();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mCurrentUser = getIntent().getExtras().getParcelable(ARG_USER);
         setContentView(R.layout.activity_main);
         mViewPagerManager = new ViewPagerManager(this);
         setUpToolBar();
@@ -165,6 +169,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     /**********************************************************************************************/
+
+    public User getCurrentUser() {
+        return mCurrentUser;
+    }
+
+
 
     @Override
     public void onBackPressed() {
