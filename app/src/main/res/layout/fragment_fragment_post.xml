@@ -1,0 +1,15 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.www.funone.fragments.FragmentPost">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/post_image_comments_height"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/stub_image" />
+
+
+</RelativeLayout>

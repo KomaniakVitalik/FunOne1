@@ -2,6 +2,10 @@ package com.www.funone.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,7 +13,9 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.www.funone.R;
+import com.www.funone.adapters.ProfilePageAdapter;
 import com.www.funone.fragments.CommentsFragment;
+import com.www.funone.fragments.FragmentPost;
 
 
 public class BestCommentsActivity extends BaseActivity implements View.OnClickListener {
@@ -21,25 +27,40 @@ public class BestCommentsActivity extends BaseActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_best_comments);
         setUpToolBar();
-        removeIncludedLayoutMarginBottom();
-        resizeIncludedLayoutImageView();
         loadFrg(CommentsFragment.newInstance(), R.id.content_best_comments, false);
         findViewById(R.id.all_comments).setOnClickListener(this);
         findViewById(R.id.best_comments).setOnClickListener(this);
         setPrimaryStatusBarColor(R.color.colorPrimaryDark);
+        initViewPager();
     }
 
-    private void resizeIncludedLayoutImageView() {
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) findViewById(R.id.iv_post_image).getLayoutParams();
-        params.height = getResources().getDimensionPixelSize(R.dimen.post_image_comments_height);
-        findViewById(R.id.iv_post_image).setLayoutParams(params);
+    private void initViewPager() {
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager_best_comments);
+        viewPager.setAdapter(new ScreenSlidePagerAdapter(getSupportFragmentManager()));
+
     }
 
-    private void removeIncludedLayoutMarginBottom() {
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) findViewById(R.id.rel_margin).getLayoutParams();
-        params.setMargins(0, 0, 0, 0);
-        findViewById(R.id.rel_margin).setLayoutParams(params);
+    /**
+     * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
+     * sequence.
+     */
+    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+
+        public ScreenSlidePagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return FragmentPost.newInstance();
+        }
+
+        @Override
+        public int getCount() {
+            return 10;
+        }
     }
+
 
     /**
      * Initializes Toolbar. Enables title and back button
