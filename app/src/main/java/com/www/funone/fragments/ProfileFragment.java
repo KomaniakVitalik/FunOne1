@@ -8,10 +8,15 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.bumptech.glide.Glide;
 import com.www.funone.R;
+import com.www.funone.activities.MainActivity;
 import com.www.funone.adapters.ProfilePageAdapter;
+import com.www.funone.model.User;
+import com.www.funone.util.Validator;
 import com.www.funone.view.NonSwipableViewPager;
 import com.www.funone.view.TextViewFont;
 
@@ -20,8 +25,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     private View mView;
     private TextViewFont mEditPhoto;
+    private TextViewFont mTvUserName;
     private TabLayout tabLayout;
     private NonSwipableViewPager viewPager;
+    private ImageView mIvProfileAva;
+    private User mCurrentUser;
 
 
     public ProfileFragment() {
@@ -48,7 +56,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_profile, container, false);
-
+        mCurrentUser = ((MainActivity) getActivity()).getCurrentUser();
         setupView();
 
         return mView;
@@ -98,6 +106,33 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private void setupView() {
         initView();
         setupViewPager();
+        displayUserInfo();
+    }
+
+    private void displayUserInfo() {
+        if (Validator.isObjectValid(mCurrentUser)) {
+            showUserAva();
+            showUserName();
+        }
+    }
+
+    private void showUserAva() {
+        mIvProfileAva = (ImageView) mView.findViewById(R.id.img_profile_ava);
+        String picURL = mCurrentUser.getProfilePictureURL();
+        if (Validator.isStringValid(picURL)) {
+            Glide.with(getContext())
+                    .load(picURL)
+                    .centerCrop()
+                    .into(mIvProfileAva);
+        }
+    }
+
+    private void showUserName() {
+        mTvUserName = (TextViewFont) mView.findViewById(R.id.tv_profile_user_name);
+        String usName = mCurrentUser.getName();
+        if (Validator.isStringValid(usName)) {
+            mTvUserName.setText(usName);
+        }
     }
 
     @Override

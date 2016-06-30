@@ -11,11 +11,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.login.widget.LoginButton;
+import com.www.funone.CoreApp;
 import com.www.funone.R;
 import com.www.funone.managers.AuthenticationManager;
 import com.www.funone.model.User;
 import com.www.funone.util.Logger;
-import com.www.funone.util.Pref;
 
 public class SocialLoginActivity extends BaseActivity implements View.OnClickListener, AuthenticationManager.OnSocialLogInListener {
 
@@ -27,7 +27,7 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAuthenticationManager = AuthenticationManager.getInstance();
+        mAuthenticationManager = CoreApp.getInstance().getAuthenticationManager();
         mAuthenticationManager.addLogInListener(this);
         setContentView(R.layout.activity_socila_login);
         setUpToolBar();
@@ -79,10 +79,10 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
     /**
      * Starts Main Activity after successful log in
      */
-    private void startMainActivity() {
+    private void startMainActivity(User user) {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(MainActivity.ARG_USER, user);
         startActivity(intent);
-        this.finish();
     }
 
     /**
@@ -108,8 +108,10 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
-    private void registerStubbedLogIn() {
-        Pref.setBoolean(Pref.PREF_USER_LOGGED_IN, true);
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mAuthenticationManager.addLogInListener(null);
     }
 
     @Override
@@ -122,30 +124,28 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rel_facebook_btn_wrapper:
-                //mAuthenticationManager.logInVia(SocialLoginActivity.this, AuthenticationManager.FACEBOOK);
-                registerStubbedLogIn();
-                startMainActivity();
+                mAuthenticationManager.logInVia(SocialLoginActivity.this, AuthenticationManager.FACEBOOK);
                 break;
             case R.id.google_plus_log_in_button:
-                registerStubbedLogIn();
-                startMainActivity();
+                //startMainActivity();
+                mAuthenticationManager.logInVia(SocialLoginActivity.this, AuthenticationManager.GOOGLE);
                 break;
             case R.id.vk_login_btn:
-                registerStubbedLogIn();
-                startMainActivity();
+                mAuthenticationManager.logInVia(SocialLoginActivity.this, AuthenticationManager.VK);
                 break;
             case R.id.rel_terms_of_services:
                 Toast.makeText(SocialLoginActivity.this, getResString(R.string.terms_privacy_policy)
                         , Toast.LENGTH_SHORT).show();
                 break;
         }
-        setButtonListeners(null);
+       // setButtonListeners(null);
     }
 
 
     @Override
     public void onLogInSuccess(int socialNetworkKey, User user) {
         Logger.d(TAG, user.toString());
+        startMainActivity(user);
     }
 
     @Override
