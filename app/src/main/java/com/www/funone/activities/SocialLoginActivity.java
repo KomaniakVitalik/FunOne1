@@ -83,6 +83,7 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(MainActivity.ARG_USER, user);
         startActivity(intent);
+        SocialLoginActivity.this.finish();
     }
 
     /**
@@ -127,7 +128,6 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
                 mAuthenticationManager.logInVia(SocialLoginActivity.this, AuthenticationManager.FACEBOOK);
                 break;
             case R.id.google_plus_log_in_button:
-                //startMainActivity();
                 mAuthenticationManager.logInVia(SocialLoginActivity.this, AuthenticationManager.GOOGLE);
                 break;
             case R.id.vk_login_btn:
@@ -138,7 +138,7 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
                         , Toast.LENGTH_SHORT).show();
                 break;
         }
-       // setButtonListeners(null);
+        setButtonListeners(null);
     }
 
 
