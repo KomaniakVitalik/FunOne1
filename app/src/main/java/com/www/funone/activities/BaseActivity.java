@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -94,6 +95,10 @@ public class BaseActivity extends AppCompatActivity {
 
     protected int getCompatColor(int id) {
         return ContextCompat.getColor(this, id);
+    }
+
+    protected Drawable getCompatDrawable(int id) {
+        return ContextCompat.getDrawable(this, id);
     }
 
     protected void applyCustomFont(TextView tv, String typeFaceLocation) {

@@ -57,5 +57,9 @@
     <!--ERRORS-->
     <string name="err_log_in">Error has occurred while logging in with </string>
 
+    <!--CAMERA-->
+    <string name="add_photo">Add photo</string>
+    <string name="add_video">Add video</string>
+
 
 </resources>

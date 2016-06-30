@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.www.funone.R;
 import com.www.funone.ViewPagerManager;
+import com.www.funone.fragments.NativeCameraFragment;
 import com.www.funone.util.Logger;
 import com.www.funone.util.Validator;
 import com.www.funone.util.ViewUtil;
@@ -40,6 +41,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mViewPagerManager = new ViewPagerManager(this);
         setUpToolBar();
         addSearchTextWatcher();
+
     }
 
     /**********************************************************************************************/

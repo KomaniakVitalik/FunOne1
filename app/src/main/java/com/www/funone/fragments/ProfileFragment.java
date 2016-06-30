@@ -1,6 +1,7 @@
 package com.www.funone.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.www.funone.R;
+import com.www.funone.activities.CameraActivity;
 import com.www.funone.adapters.ProfilePageAdapter;
 import com.www.funone.view.NonSwipableViewPager;
 import com.www.funone.view.TextViewFont;
@@ -60,6 +62,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
         RelativeLayout addFunOne = (RelativeLayout) mView.findViewById(R.id.btn_add_funone);
         addFunOne.setOnClickListener(this);
+
+        mView.findViewById(R.id.img_add_user_photo).setOnClickListener(this);
     }
 
     private void setupViewPager() {
@@ -104,6 +108,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_add_funone:
+                break;
+            case R.id.img_add_user_photo:
+                startActivity(new Intent(getActivity(), CameraActivity.class));
                 break;
         }
     }
