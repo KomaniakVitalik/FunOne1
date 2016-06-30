@@ -1,10 +1,13 @@
 package com.www.funone.util;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
+
+import com.www.funone.CoreApp;
 
 import java.util.List;
 import java.util.Random;
@@ -59,6 +62,14 @@ public class Validator {
 
     public static long TIMESTAMP() {
         return System.currentTimeMillis() / 1000;
+    }
+
+    public static boolean canResolveIntent(Intent intent) {
+        PackageManager packageManager = CoreApp.getInstance().getPackageManager();
+        if (intent.resolveActivity(packageManager) != null) {
+            return true;
+        }
+        return false;
     }
 
 

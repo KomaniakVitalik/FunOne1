@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 
 import com.www.funone.R;
 import com.www.funone.fragments.NativeCameraFragment;
+import com.www.funone.util.Validator;
 
 public class CameraActivity extends BaseActivity implements View.OnClickListener {
 
@@ -84,13 +85,24 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
     private void takePhotoFromGallery(Activity activity) {
         Intent intent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        activity.startActivityForResult(intent, ACTION_TAKE_GALLERY_PHOTO);
+        if (Validator.canResolveIntent(intent)) {
+            activity.startActivityForResult(intent, ACTION_TAKE_GALLERY_PHOTO);
+        } else {
+            TOAST(getResString(R.string.err_could_not_open_gallery));
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
+        //super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            TOAST("OK");
+            CameraActivity.this.finish();
+        } else if (requestCode == RESULT_CANCELED) {
+            TOAST("CANCELED");
+        } else if (requestCode == RESULT_FIRST_USER) {
+            TOAST("FIRST USER");
+        }
     }
 
     @Override
