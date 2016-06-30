@@ -22,7 +22,7 @@ import java.util.List;
 public class ContentRecyclerAdapter extends RecyclerView.Adapter<ContentRecyclerAdapter.ContentPostViewHolder> {
 
     private static final int LIKED = 1;
-    private static final int OPEN_COMMENTS_PAGE = 2;
+    private static final int OPEN_COMMENT_DETAILS_PAGE = 2;
     private static final int OPEN_SHARE_LAYOUT = 3;
     private static final int OPEN_ALL_COMMENTS = 4;
 
@@ -109,10 +109,10 @@ public class ContentRecyclerAdapter extends RecyclerView.Adapter<ContentRecycler
                     adapter.notifyPostInteraction(post, ContentRecyclerAdapter.LIKED);
                     break;
                 case R.id.lin_comments_wrapper:
-                    adapter.notifyPostInteraction(post, ContentRecyclerAdapter.OPEN_COMMENTS_PAGE);
+                    adapter.notifyPostInteraction(post, ContentRecyclerAdapter.OPEN_ALL_COMMENTS);
                     break;
                 case R.id.iv_post_image:
-                    adapter.notifyPostInteraction(post, ContentRecyclerAdapter.OPEN_ALL_COMMENTS);
+                    adapter.notifyPostInteraction(post, ContentRecyclerAdapter.OPEN_COMMENT_DETAILS_PAGE);
                     break;
             }
         }
@@ -130,7 +130,7 @@ public class ContentRecyclerAdapter extends RecyclerView.Adapter<ContentRecycler
                     case LIKED:
                         listener.onPostLiked(post);
                         break;
-                    case OPEN_COMMENTS_PAGE:
+                    case OPEN_COMMENT_DETAILS_PAGE:
                         listener.onOpenBestCommentsActivity(post);
                         break;
                     case OPEN_SHARE_LAYOUT:
