@@ -69,6 +69,7 @@ public class CameraManager {
         return instance;
     }
 
+
     public enum Action {
         TAKE_PHOTO,
         TAKE_VIDEO,
@@ -76,6 +77,13 @@ public class CameraManager {
         SELECT_VIDEO
     }
 
+    /**
+     * Used to start Intent basing on provided Action enum value
+     *
+     * @param activity - Activity
+     * @param what     - Action enum's value
+     * @param button   - Target button
+     */
     public void launch(Activity activity, Action what, View button) {
         this.mActivity = activity;
         CURRENT_ACTION = what;
@@ -95,6 +103,13 @@ public class CameraManager {
         }
     }
 
+    /**
+     * Used to handled Activity's callback of onRequestPermissionsResult method
+     *
+     * @param requestCode  - Current request code
+     * @param permissions  - Array of desired permissions
+     * @param grantResults - array of grant results - PERMISSION_GRANTED || PERMISSION_DENIED
+     */
     public void onPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case RC_PERMISSIONS:
@@ -201,6 +216,13 @@ public class CameraManager {
         }
     }
 
+    /**
+     * Checks if permission required by this class are granted or not
+     *
+     * @param activity    - Activity
+     * @param requestCode - Current requestCode
+     * @return - tru if granted
+     */
     private boolean arePermissionsGranted(Activity activity, int requestCode) {
         String[] permissions = {Manifest.permission.CAMERA,
                 Manifest.permission.READ_EXTERNAL_STORAGE,
