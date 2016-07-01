@@ -38,23 +38,21 @@
     <string name="all_comments">All Comments</string>
     <string name="edit_photo">Edit photo</string>
     <string name="add_your_fun_one">Add your FunOne</string>
-    <string name="linked_posts">Linked posts</string>
+    <string name="linked_posts">Liked posts</string>
     <string name="my_posts">My posts</string>
     <string name="linked_profile_empty">Here you find your posts!</string>
     <string name="liked_profile_empty">Here you find liked posts!</string>
     <string name="my_posts_empty">Here you find your posts!</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="content_settings">Настройки контента</string>
-    <string name="auto_play">Автопроигрывание</string>
-    <string name="notifications">Уведомления</string>
-    <string name="language">Язык</string>
-    <string name="connected_accounts">Связанные аккаунты</string>
+    <string name="content_settings">Content settings</string>
+    <string name="auto_play">Autoplay Video and Gif</string>
+    <string name="notifications">Push notification</string>
+    <string name="language">Language</string>
+    <string name="connected_accounts">Linked Accounts</string>
     <string name="facebook">Facebook</string>
-    <string name="connected">Подключен</string>
-    <string name="disconnect">Отключен</string>
-    <string name="logout"><u>Выйти</u></string>
+    <string name="connected">Connected</string>
+    <string name="disconnect">Disconnected</string>
+    <string name="logout"><u>Log Out</u></string>
 
     <!--ERRORS-->
     <string name="err_log_in">Error has occurred while logging in with </string>

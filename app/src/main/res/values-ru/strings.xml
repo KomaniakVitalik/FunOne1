@@ -4,4 +4,30 @@
     <string name="log_in">Вход</string>
     <string name="popular_hash_tag">Популярные хештеги</string>
     <string name="fun_search_hint">Найти FunOne</string>
+    <string name="settings">Настройки</string>
+    <string name="best_comments">Лучшие комментарии</string>
+    <string name="all_comments">Все комментарии</string>
+    <string name="add_comment_here">Оставить комментраий…</string>
+    <string name="edit_photo">Редактировать</string>
+    <string name="linked_posts">Понравилось</string>
+    <string name="my_posts">Публикации</string>
+    <string name="add_your_fun_one">Добавить FunOne</string>
+
+
+    <string name="content_settings">Настройки контента</string>
+    <string name="auto_play">Автопроигрывание</string>
+    <string name="notifications">Уведомления</string>
+    <string name="language">Язык</string>
+    <string name="connected_accounts">Связанные аккаунты</string>
+    <string name="facebook">Facebook</string>
+    <string name="connected">Подключен</string>
+    <string name="disconnect">Отключен</string>
+    <string name="logout"><u>Выйти</u></string>
+
+    <!--SHARE-->
+    <string name="share">Поделиться…</string>
+    <string name="save">Сохранить</string>
+    <string name="cancel">Отмена</string>
+
+
 </resources>
