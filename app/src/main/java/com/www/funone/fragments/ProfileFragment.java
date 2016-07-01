@@ -117,11 +117,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
 
     private void displayUserInfo() {
         if (Validator.isObjectValid(mCurrentUser)) {
+
             String pictureURL = mCurrentUser.getProfilePictureURL();
             String usName = mCurrentUser.getName();
-            showUserAva(pictureURL);
 
+            showUserAva(pictureURL);
             showUserName(usName);
+
         }
     }
 
@@ -144,8 +146,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         mainActivity.addOnMediaItemCapturedListener(null);
+        super.onDestroy();
     }
 
     @Override
@@ -159,5 +161,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
     @Override
     public void onPhotoTaken(String uri) {
         showUserAva(uri);
+    }
+
+    @Override
+    public void onVideoTaken(String uri) {
+
     }
 }

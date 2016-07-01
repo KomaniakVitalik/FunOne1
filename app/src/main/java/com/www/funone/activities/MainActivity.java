@@ -1,6 +1,7 @@
 package com.www.funone.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
@@ -47,8 +48,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         addSearchTextWatcher();
     }
 
-    private void getUserFromIntentExtras(){
-        if(Validator.isObjectValid(getIntent().getExtras())){
+    private void getUserFromIntentExtras() {
+        if (Validator.isObjectValid(getIntent().getExtras())) {
             mCurrentUser = getIntent().getExtras().getParcelable(ARG_USER);
         }
     }
@@ -182,7 +183,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (Validator.isObjectValid(mOnMediaItemCapturedListener)) {
@@ -193,13 +193,34 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     }
                     break;
                 case CameraManager.ACTION_TAKE_GALLERY_PHOTO:
-
+                    if (resultCode == RESULT_OK) {
+                        if (Validator.isObjectValid(data)) {
+                            if (Validator.isObjectValid(data.getData())) {
+                                Uri mVideoUri = data.getData();
+                                mOnMediaItemCapturedListener.onPhotoTaken(mVideoUri.toString());
+                            }
+                        }
+                    }
                     break;
                 case CameraManager.ACTION_TAKE_CAMERA_VIDEO:
-
+                    if (resultCode == RESULT_OK) {
+                        if (Validator.isObjectValid(data)) {
+                            if (Validator.isObjectValid(data.getData())) {
+                                Uri mVideoUri = data.getData();
+                                mOnMediaItemCapturedListener.onVideoTaken(mVideoUri.toString());
+                            }
+                        }
+                    }
                     break;
                 case CameraManager.ACTION_TAKE_GALLERY_VIDEO:
-
+                    if (resultCode == RESULT_OK) {
+                        if (Validator.isObjectValid(data)) {
+                            if (Validator.isObjectValid(data.getData())) {
+                                Uri mVideoUri = data.getData();
+                                mOnMediaItemCapturedListener.onVideoTaken(mVideoUri.toString());
+                            }
+                        }
+                    }
                     break;
             }
         }
@@ -254,7 +275,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     public interface OnMediaItemCapturedListener {
-        void onPhotoTaken(String string);
+        void onPhotoTaken(String uri);
+
+        void onVideoTaken(String uri);
     }
 
     public void setSearchGridShown(boolean searchGridShown) {
