@@ -54,7 +54,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by vitaliy.herasymchuk on 6/29/16.
+ * Class responsible for authentication via social networks - Facebook,GOOGLE,VK
  */
 public class AuthenticationManager {
 
@@ -128,6 +128,13 @@ public class AuthenticationManager {
         }
     }
 
+    /**
+     * Used to be called in onActivityResult of Activity
+     *
+     * @param requestCode - Current request code
+     * @param resultCode  - result code of request
+     * @param data        - Intent
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         mFacebookCallBackManager.onActivityResult(requestCode, resultCode, data);
 
@@ -306,40 +313,41 @@ public class AuthenticationManager {
         VKRequest vkRequest = VKApi.users().get(parameters);
 
         vkRequest.executeWithListener(new VKRequest.VKRequestListener() {
-            @Override
-            public void onComplete(VKResponse response) {
-                super.onComplete(response);
-                if (Validator.isObjectValid(response)) {
-                    List<VKApiUser> userList = (List<VKApiUser>) response.parsedModel;
+                                          @Override
+                                          public void onComplete(VKResponse response) {
+                                              super.onComplete(response);
+                                              if (Validator.isObjectValid(response)) {
+                                                  List<VKApiUser> userList = (List<VKApiUser>) response.parsedModel;
 
-                    if(!Validator.isListValid(userList)){
-                        notifyLogInError(VK);
-                        return;
-                    }
+                                                  if (!Validator.isListValid(userList)) {
+                                                      notifyLogInError(VK);
+                                                      return;
+                                                  }
 
-                    VKApiUser user = userList.get(0);
+                                                  VKApiUser user = userList.get(0);
 
-                    if(!Validator.isObjectValid(user)){
-                        notifyLogInError(VK);
-                        return;
-                    }
+                                                  if (!Validator.isObjectValid(user)) {
+                                                      notifyLogInError(VK);
+                                                      return;
+                                                  }
 
-                    User currentUser = new User();
-                    currentUser.setName(user.first_name + " "+ user.last_name);
-                    currentUser.setProfilePictureURL(user.photo_100);
-                    notifyLogInSuccess(VK,currentUser);
+                                                  User currentUser = new User();
+                                                  currentUser.setName(user.first_name + " " + user.last_name);
+                                                  currentUser.setProfilePictureURL(user.photo_100);
+                                                  notifyLogInSuccess(VK, currentUser);
 
-                }
-            }
-                @Override
-                public void onError (VKError error){
-                    super.onError(error);
-                    notifyLogInError(VK);
-                }
-            }
+                                              }
+                                          }
 
-            );
-        }
+                                          @Override
+                                          public void onError(VKError error) {
+                                              super.onError(error);
+                                              notifyLogInError(VK);
+                                          }
+                                      }
+
+        );
+    }
 
     private String getDebugKeyHash() {
         String hash = "";

@@ -33,15 +33,7 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
         setContentView(R.layout.activity_socila_login);
         setUpToolBar();
         setTitleTypeFace();
-        setUpView();
         setPrimaryStatusBarColor(R.color.black);
-    }
-
-    /**
-     * Initializes All the views
-     */
-    private void setUpView() {
-        setButtonListeners(this);
     }
 
     /**
@@ -64,6 +56,13 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getResString(R.string.log_in));
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     /**
@@ -111,6 +110,18 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
+    public void onBackPressed() {
+        startMainActivity(null);
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setButtonListeners(this);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         mAuthenticationManager.addLogInListener(null);
@@ -147,7 +158,7 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
     public void onLogInSuccess(int socialNetworkKey, User user) {
         Logger.d(TAG, user.toString());
         startMainActivity(user);
-        Pref.setBoolean(Pref.PREF_USER_LOGGED_IN,true);
+        Pref.setBoolean(Pref.PREF_USER_LOGGED_IN, true);
     }
 
     @Override
