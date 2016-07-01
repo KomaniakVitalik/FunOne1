@@ -27,7 +27,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private AppBarLayout mBarLayout;
     private TextView mTvToolBarTitle;
-    private boolean toolBarExpanded = false;
     private ViewPagerManager mViewPagerManager;
     private EditText mEdSearch;
     private Toolbar mToolbar;
@@ -70,7 +69,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mBarLayout.setExpanded(true, true);
         setToolBarBackAndTitleVisible(false);
         setToolBarGravity(Gravity.TOP);
-        toolBarExpanded = true;
         showSearchView();
     }
 
@@ -82,7 +80,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         hideToolBarTitle();
         setToolBarGravity(Gravity.BOTTOM);
         showSlidingTabs();
-        toolBarExpanded = false;
     }
 
     private void setNestedToolBarScrollEnabled(boolean enabled) {
@@ -104,10 +101,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 = (CollapsingToolbarLayout.LayoutParams) findViewById(R.id.toolbar).getLayoutParams();
         params.gravity = gravity;
         findViewById(R.id.toolbar).setLayoutParams(params);
-    }
-
-    private void hideSlidingTabs() {
-        ViewUtil.hideView(findViewById(R.id.sliding_tabs));
     }
 
     private void showSlidingTabs() {
@@ -165,14 +158,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             }
         });
-        mEdSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    Logger.d(TAG, "Has focus");
-                }
-            }
-        });
     }
 
     public void addSearchFocusListener(View.OnFocusChangeListener focusChangeListener) {
@@ -183,16 +168,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onBackPressed() {
-        if (toolBarExpanded) {
-            if (searchGridShown) {
-                collapseToolBar();
-                mViewPagerManager.returnToPreviousTab();
-            } else {
-                if (Validator.isObjectValid(gridHashTagsListener)) {
-                    gridHashTagsListener.onHide();
-                }
-            }
-        } else {
+        if (mViewPagerManager.isFirstTab()) {
             super.onBackPressed();
         }
     }
@@ -200,8 +176,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         mToolbar.getMenu().clear();
-
-        //getMenuInflater().inflate(R.menu.menu_main, menu);
         return false;
     }
 
