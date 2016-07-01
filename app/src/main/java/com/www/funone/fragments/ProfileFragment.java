@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.www.funone.R;
-import com.www.funone.activities.CameraActivity;
+import com.www.funone.camera.CameraActivity;
 import com.www.funone.adapters.ProfilePageAdapter;
 import com.www.funone.view.NonSwipableViewPager;
 import com.www.funone.view.TextViewFont;
@@ -110,7 +110,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             case R.id.btn_add_funone:
                 break;
             case R.id.img_add_user_photo:
-                startActivity(new Intent(getActivity(), CameraActivity.class));
+                //startActivity(new Intent(getActivity(), CameraActivity.class));
                 break;
         }
     }
