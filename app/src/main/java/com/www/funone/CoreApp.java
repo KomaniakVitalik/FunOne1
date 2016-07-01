@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.facebook.FacebookSdk;
 import com.google.gson.Gson;
+import com.www.funone.api.DataManager;
 import com.www.funone.api.RetrofitRequest;
 import com.www.funone.managers.AuthenticationManager;
 import com.www.funone.util.AppSettings;
@@ -16,7 +17,7 @@ public class CoreApp extends Application {
 
     private static CoreApp instance;
     private AppSettings appSettings;
-    private RetrofitRequest retrofitRequest;
+    private DataManager dataManager;
     private AuthenticationManager authenticationManager;
 
     @Override
@@ -24,7 +25,7 @@ public class CoreApp extends Application {
         super.onCreate();
         FacebookSdk.sdkInitialize(this);
         instance = this;
-        retrofitRequest = new RetrofitRequest();
+        dataManager = new DataManager(new RetrofitRequest());
         authenticationManager = AuthenticationManager.getInstance();
 
         if (Pref.getString(Pref.APP_SETTINGS_KEY) == null) {
@@ -46,11 +47,11 @@ public class CoreApp extends Application {
         this.appSettings = appSettings;
     }
 
-    public RetrofitRequest getRequestBuilder() {
-        return retrofitRequest;
-    }
-
     public AuthenticationManager getAuthenticationManager() {
         return authenticationManager;
+    }
+
+    public DataManager getDataManager() {
+        return dataManager;
     }
 }
