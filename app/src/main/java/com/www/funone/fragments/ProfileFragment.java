@@ -8,9 +8,11 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.www.funone.R;
 import com.www.funone.activities.MainActivity;
 import com.www.funone.adapters.ProfilePageAdapter;
@@ -26,7 +28,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
     private TabLayout tabLayout;
     private NonSwipableViewPager viewPager;
     private MainActivity mainActivity;
-
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -54,7 +55,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
         mainActivity = (MainActivity) getActivity();
         mainActivity.addOnMediaItemCapturedListener(this);
         mView = inflater.inflate(R.layout.fragment_profile, container, false);
-
         setupView();
 
         return mView;
