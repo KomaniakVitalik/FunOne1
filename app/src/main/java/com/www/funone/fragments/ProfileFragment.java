@@ -67,7 +67,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
         RelativeLayout addFunOne = (RelativeLayout) mView.findViewById(R.id.btn_add_funone);
         addFunOne.setOnClickListener(this);
 
-        CameraManager.getInstance().launch(getActivity(), CameraManager.Action.SELECT_PHOTO, mView.findViewById(R.id.img_add_user_photo));
+        CameraManager.getInstance().launch(getActivity(), CameraManager.Action.TAKE_PHOTO, mView.findViewById(R.id.img_add_user_photo));
 
     }
 
@@ -125,6 +125,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
 
     @Override
     public void onPhotoTaken(String uri) {
-        Toast.makeText(getActivity(), uri, Toast.LENGTH_SHORT).show();
+
     }
 }

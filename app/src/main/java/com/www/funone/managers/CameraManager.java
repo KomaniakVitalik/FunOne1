@@ -350,7 +350,7 @@ public class CameraManager {
     private void galleryAddPic(Context context) {
         Intent mediaScanIntent = new Intent("android.intent.action.MEDIA_SCANNER_SCAN_FILE");
         File file = new File(mCurrentPhotoPath);
-        Uri contentUri = Uri.fromFile(new File(mCurrentPhotoPath));
+        Uri contentUri = Uri.fromFile(file);
         mediaScanIntent.setData(contentUri);
         context.sendBroadcast(mediaScanIntent);
     }
@@ -390,5 +390,7 @@ public class CameraManager {
         }
     }
 
-
+    public String getCurrentPhotoPath() {
+        return mCurrentPhotoPath;
+    }
 }
