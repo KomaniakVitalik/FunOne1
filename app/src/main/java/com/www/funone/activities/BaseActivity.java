@@ -81,6 +81,15 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    protected void loadFragment(Fragment fragment, int container, boolean useBackStack) {
+        String backStateName = fragment.getClass().getName();
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction ft = manager.beginTransaction();
+        ft.replace(container, fragment, backStateName);
+        ft.addToBackStack(null);
+        ft.commit();
+    }
+
     /**
      * If SDK_INT version is >= LOLLIPOP than it changes status bar color
      */

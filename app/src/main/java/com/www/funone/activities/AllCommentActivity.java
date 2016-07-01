@@ -17,7 +17,6 @@ import com.www.funone.util.Validator;
 
 public class AllCommentActivity extends BaseActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,14 +44,13 @@ public class AllCommentActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.content_comments);
-        if(Validator.isObjectValid(fragment)){
-            if(fragment instanceof CommentsFragment){
+        if (Validator.isObjectValid(fragment)) {
+            if (fragment instanceof CommentsFragment) {
                 this.finish();
             }
-        }else{
+        } else {
             super.onBackPressed();
         }
-
     }
 
     @Override

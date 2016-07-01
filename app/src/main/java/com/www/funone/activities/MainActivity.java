@@ -77,10 +77,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void expandToolBar() {
         setNestedToolBarScrollEnabled(true);
         mBarLayout.setExpanded(true, true);
-        setToolBarBackAndTitleVisible(true);
-        showToolBatTitle();
+        setToolBarBackAndTitleVisible(false);
         setToolBarGravity(Gravity.TOP);
-        hideSlidingTabs();
         toolBarExpanded = true;
         showSearchView();
     }
