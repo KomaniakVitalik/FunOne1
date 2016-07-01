@@ -21,7 +21,6 @@ import com.www.funone.R;
 import com.www.funone.ViewPagerManager;
 import com.www.funone.managers.CameraManager;
 import com.www.funone.model.User;
-import com.www.funone.util.Logger;
 import com.www.funone.util.Validator;
 import com.www.funone.util.ViewUtil;
 
@@ -185,11 +184,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (Validator.isObjectValid(mOnMediaItemCapturedListener)) {
+        if (Validator.isObjectValid(mOnActivityCallBacksListener)) {
             switch (requestCode) {
                 case CameraManager.ACTION_TAKE_CAMERA_PHOTO:
                     if (resultCode == RESULT_OK) {
-                        mOnMediaItemCapturedListener.onPhotoTaken(CameraManager.getInstance().getCurrentPhotoPath());
+                        mOnActivityCallBacksListener.onPhotoTaken(CameraManager.getInstance().getCurrentPhotoPath());
                     }
                     break;
                 case CameraManager.ACTION_TAKE_GALLERY_PHOTO:
@@ -197,7 +196,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         if (Validator.isObjectValid(data)) {
                             if (Validator.isObjectValid(data.getData())) {
                                 Uri mVideoUri = data.getData();
-                                mOnMediaItemCapturedListener.onPhotoTaken(mVideoUri.toString());
+                                mOnActivityCallBacksListener.onPhotoTaken(mVideoUri.toString());
                             }
                         }
                     }
@@ -207,7 +206,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         if (Validator.isObjectValid(data)) {
                             if (Validator.isObjectValid(data.getData())) {
                                 Uri mVideoUri = data.getData();
-                                mOnMediaItemCapturedListener.onVideoTaken(mVideoUri.toString());
+                                mOnActivityCallBacksListener.onVideoTaken(mVideoUri.toString());
                             }
                         }
                     }
@@ -217,7 +216,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         if (Validator.isObjectValid(data)) {
                             if (Validator.isObjectValid(data.getData())) {
                                 Uri mVideoUri = data.getData();
-                                mOnMediaItemCapturedListener.onVideoTaken(mVideoUri.toString());
+                                mOnActivityCallBacksListener.onVideoTaken(mVideoUri.toString());
                             }
                         }
                     }
@@ -268,13 +267,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
 
-    OnMediaItemCapturedListener mOnMediaItemCapturedListener;
+    OnActivityCallBacksListener mOnActivityCallBacksListener;
 
-    public void addOnMediaItemCapturedListener(OnMediaItemCapturedListener listener) {
-        this.mOnMediaItemCapturedListener = listener;
+    public void addActivityCallBacksListener(OnActivityCallBacksListener listener) {
+        this.mOnActivityCallBacksListener = listener;
     }
 
-    public interface OnMediaItemCapturedListener {
+    public interface OnActivityCallBacksListener {
         void onPhotoTaken(String uri);
 
         void onVideoTaken(String uri);

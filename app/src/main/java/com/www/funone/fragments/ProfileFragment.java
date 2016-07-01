@@ -22,7 +22,7 @@ import com.www.funone.view.NonSwipableViewPager;
 import com.www.funone.view.TextViewFont;
 
 
-public class ProfileFragment extends Fragment implements View.OnClickListener, MainActivity.OnMediaItemCapturedListener {
+public class ProfileFragment extends Fragment implements View.OnClickListener, MainActivity.OnActivityCallBacksListener {
 
     private View mView;
     private TextViewFont mEditPhoto;
@@ -51,7 +51,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainActivity = (MainActivity) getActivity();
-        mainActivity.addOnMediaItemCapturedListener(this);
+        mainActivity.addActivityCallBacksListener(this);
     }
 
     @Override
@@ -146,7 +146,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
 
     @Override
     public void onDestroy() {
-        mainActivity.addOnMediaItemCapturedListener(null);
+        mainActivity.addActivityCallBacksListener(null);
         super.onDestroy();
     }
 
