@@ -59,5 +59,11 @@
     <!--ERRORS-->
     <string name="err_log_in">Error has occurred while logging in with </string>
 
+    <string name="http_not_valid_response_object">Unable to get response from server. Please, try again</string>
+    <string name="http_bad_request">Bad Request</string>
+    <string name="http_forbidden">Forbidden</string>
+    <string name="http_not_found">Not Found</string>
+    <string name="http_server_error">Internal Server Error</string>
+
 
 </resources>

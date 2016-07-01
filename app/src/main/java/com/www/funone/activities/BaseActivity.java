@@ -25,7 +25,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.www.funone.CoreApp;
 import com.www.funone.R;
+import com.www.funone.api.DataManager;
 import com.www.funone.util.Logger;
 import com.www.funone.util.Validator;
 
@@ -116,6 +118,10 @@ public class BaseActivity extends AppCompatActivity {
 
     protected void TOAST(int msg) {
         Toast.makeText(BaseActivity.this, getResString(msg), Toast.LENGTH_SHORT).show();
+    }
+
+    protected DataManager getDataManager() {
+        return CoreApp.getInstance().getDataManager();
     }
 
     /**
