@@ -15,13 +15,14 @@ import com.bumptech.glide.Glide;
 import com.www.funone.R;
 import com.www.funone.activities.MainActivity;
 import com.www.funone.adapters.ProfilePageAdapter;
+import com.www.funone.managers.CameraManager;
 import com.www.funone.model.User;
 import com.www.funone.util.Validator;
 import com.www.funone.view.NonSwipableViewPager;
 import com.www.funone.view.TextViewFont;
 
 
-public class ProfileFragment extends Fragment implements View.OnClickListener {
+public class ProfileFragment extends Fragment implements View.OnClickListener,MainActivity.OnMediaItemCapturedListener {
 
     private View mView;
     private TextViewFont mEditPhoto;

@@ -2,6 +2,7 @@ package com.www.funone.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import com.www.funone.R;
 import com.www.funone.ViewPagerManager;
+import com.www.funone.managers.CameraManager;
 import com.www.funone.model.User;
 import com.www.funone.util.Logger;
 import com.www.funone.util.Validator;
