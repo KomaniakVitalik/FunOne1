@@ -24,7 +24,7 @@ public class ViewPagerManager implements TabLayout.OnTabSelectedListener,
     private MainActivity mActivity;
     private NonSwipableViewPager mViewPager;
     private ScreenSlidePagerAdapter mPagerAdapter;
-    private int mPreviousSelectedPosition = -1;
+
 
     private int[] TAB_ICS_STABLE = {
             R.drawable.home,
@@ -76,10 +76,12 @@ public class ViewPagerManager implements TabLayout.OnTabSelectedListener,
         }
     }
 
-    public void returnToPreviousTab() {
-        if (mPreviousSelectedPosition != -1) {
-            mViewPager.setCurrentItem(mPreviousSelectedPosition);
+    public boolean isFirstTab() {
+        if (mViewPager.getCurrentItem() != 0) {
+            mViewPager.setCurrentItem(0);
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -91,7 +93,6 @@ public class ViewPagerManager implements TabLayout.OnTabSelectedListener,
                 case 0:
                     tab.setIcon(TAB_ICS_SELECTED[pos]);
                     mActivity.collapseToolBar();
-                    mPreviousSelectedPosition = pos;
                     mActivity.hideKeyboard();
                     break;
                 case 1:
@@ -102,7 +103,6 @@ public class ViewPagerManager implements TabLayout.OnTabSelectedListener,
                 case 2:
                     tab.setIcon(TAB_ICS_SELECTED[pos]);
                     mActivity.collapseToolBar();
-                    mPreviousSelectedPosition = pos;
                     mActivity.hideKeyboard();
                     break;
             }
