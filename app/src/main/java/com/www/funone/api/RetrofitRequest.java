@@ -16,19 +16,19 @@ public class RetrofitRequest {
     private static final String TAG = RetrofitRequest.class.getSimpleName();
 
     public static final int TIMEOUT = 60;
-    private static final String BASE_URL = "";
+    private static final String BASE_URL = "www.google.com";
 
     private FunOneApi api;
 
     public RetrofitRequest() {
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(createHttpClient())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        api = retrofit.create(FunOneApi.class);
+//
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl(BASE_URL)
+//                .client(createHttpClient())
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//
+//        api = retrofit.create(FunOneApi.class);
 
     }
 

@@ -261,7 +261,4 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         this.searchGridShown = searchGridShown;
     }
 
-    public boolean isSearchGridShown() {
-        return searchGridShown;
-    }
 }

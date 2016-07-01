@@ -23,10 +23,10 @@ public class DataManager {
     private static final int ERROR_NULL_RESPONSE_OBJECT = 1;
 
     private OnResponseListener mResponseListener;
-    private RetrofitRequest call;
+    private RetrofitRequest request;
 
     public DataManager(RetrofitRequest retrofitRequest) {
-        this.call = retrofitRequest;
+        this.request = retrofitRequest;
     }
 
     /**********************************************************************************************/
@@ -130,7 +130,7 @@ public class DataManager {
     }
 
     /**
-     * Checks whether Throwable is of IOException - meaning that no internet condition
+     * Checks whether Throwable is of IOException - meaning that there's no Internet connection
      *
      * @param t - Throwable
      * @return - true if IOException
@@ -162,5 +162,6 @@ public class DataManager {
     /**********************************************************************************************/
     /**************************************** Requests ********************************************/
     /**********************************************************************************************/
+
 
 }

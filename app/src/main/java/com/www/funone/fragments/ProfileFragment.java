@@ -22,7 +22,7 @@ import com.www.funone.view.NonSwipableViewPager;
 import com.www.funone.view.TextViewFont;
 
 
-public class ProfileFragment extends Fragment implements View.OnClickListener,MainActivity.OnMediaItemCapturedListener {
+public class ProfileFragment extends Fragment implements View.OnClickListener, MainActivity.OnMediaItemCapturedListener {
 
     private View mView;
     private TextViewFont mEditPhoto;
@@ -31,6 +31,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener,Ma
     private NonSwipableViewPager viewPager;
     private ImageView mIvProfileAva;
     private User mCurrentUser;
+    private MainActivity mainActivity;
 
 
     public ProfileFragment() {
@@ -49,7 +50,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener,Ma
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        mainActivity = (MainActivity) getActivity();
+        mainActivity.addOnMediaItemCapturedListener(this);
     }
 
     @Override
@@ -115,28 +117,35 @@ public class ProfileFragment extends Fragment implements View.OnClickListener,Ma
 
     private void displayUserInfo() {
         if (Validator.isObjectValid(mCurrentUser)) {
-            showUserAva();
-            showUserName();
+            String pictureURL = mCurrentUser.getProfilePictureURL();
+            String usName = mCurrentUser.getName();
+            showUserAva(pictureURL);
+
+            showUserName(usName);
         }
     }
 
-    private void showUserAva() {
+    private void showUserAva(String picUrl) {
         mIvProfileAva = (ImageView) mView.findViewById(R.id.img_profile_ava);
-        String picURL = mCurrentUser.getProfilePictureURL();
-        if (Validator.isStringValid(picURL)) {
+        if (Validator.isStringValid(picUrl)) {
             Glide.with(getContext())
-                    .load(picURL)
+                    .load(picUrl)
                     .centerCrop()
                     .into(mIvProfileAva);
         }
     }
 
-    private void showUserName() {
+    private void showUserName(String usrName) {
         mTvUserName = (TextViewFont) mView.findViewById(R.id.tv_profile_user_name);
-        String usName = mCurrentUser.getName();
-        if (Validator.isStringValid(usName)) {
-            mTvUserName.setText(usName);
+        if (Validator.isStringValid(usrName)) {
+            mTvUserName.setText(usrName);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mainActivity.addOnMediaItemCapturedListener(null);
     }
 
     @Override
@@ -149,6 +158,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener,Ma
 
     @Override
     public void onPhotoTaken(String uri) {
-
+        showUserAva(uri);
     }
 }
