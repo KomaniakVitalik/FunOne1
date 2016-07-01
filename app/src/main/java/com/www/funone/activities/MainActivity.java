@@ -1,7 +1,9 @@
 package com.www.funone.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
@@ -17,7 +19,7 @@ import android.widget.TextView;
 
 import com.www.funone.R;
 import com.www.funone.ViewPagerManager;
-import com.www.funone.util.Logger;
+import com.www.funone.managers.CameraManager;
 import com.www.funone.util.Validator;
 import com.www.funone.util.ViewUtil;
 
@@ -164,7 +166,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mEdSearch.setOnFocusChangeListener(focusChangeListener);
     }
 
+
     /**********************************************************************************************/
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(Validator.isObjectValid(mOnMediaItemCapturedListener)){
+            mOnMediaItemCapturedListener.onPhotoTaken("onActivityResult");
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        CameraManager.getInstance().onPermissionsResult(requestCode, permissions, grantResults);
+    }
 
     @Override
     public void onBackPressed() {
@@ -202,14 +219,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
 
-    OnHideHashTagsListener gridHashTagsListener;
+    OnMediaItemCapturedListener mOnMediaItemCapturedListener;
 
-    public void addHideHashTagListener(OnHideHashTagsListener listener) {
-        this.gridHashTagsListener = listener;
+    public void addOnMediaItemCapturedListener(OnMediaItemCapturedListener listener) {
+        this.mOnMediaItemCapturedListener = listener;
     }
 
-    public interface OnHideHashTagsListener {
-        void onHide();
+    public interface OnMediaItemCapturedListener {
+        void onPhotoTaken(String string);
     }
 
     public void setSearchGridShown(boolean searchGridShown) {

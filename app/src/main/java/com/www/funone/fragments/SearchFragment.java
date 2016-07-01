@@ -2,6 +2,7 @@ package com.www.funone.fragments;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -10,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.www.funone.R;
 import com.www.funone.activities.HashTagContentActivity;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class SearchFragment extends Fragment implements HashTagRecyclerAdapter.OnHashTagClickListener, MainActivity.OnHideHashTagsListener {
+public class SearchFragment extends Fragment implements HashTagRecyclerAdapter.OnHashTagClickListener {
 
 
     private HashTagRecyclerAdapter mHashTagAdapter;
@@ -50,7 +50,7 @@ public class SearchFragment extends Fragment implements HashTagRecyclerAdapter.O
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainActivity = (MainActivity) getActivity();
-        mainActivity.addHideHashTagListener(this);
+
     }
 
     @Override
@@ -139,7 +139,7 @@ public class SearchFragment extends Fragment implements HashTagRecyclerAdapter.O
 
     @Override
     public void onDestroy() {
-        mainActivity.addHideHashTagListener(null);
+
         if (Validator.isObjectValid(mHashTagAdapter)) {
             mHashTagAdapter.setOnHashTagClickListener(null);
         }
@@ -151,8 +151,4 @@ public class SearchFragment extends Fragment implements HashTagRecyclerAdapter.O
         startHashTagContentActivity(tag);
     }
 
-    @Override
-    public void onHide() {
-        initGridHashTagAdapter();
-    }
 }

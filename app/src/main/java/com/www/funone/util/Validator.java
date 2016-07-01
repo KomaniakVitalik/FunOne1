@@ -3,6 +3,7 @@ package com.www.funone.util;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
@@ -39,17 +40,6 @@ public class Validator {
         return string;
     }
 
-    public static boolean hasPermissions(Context context, String... permissions) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
-            for (String permission : permissions) {
-                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
     public static synchronized int UID() {
         int uid = 1;
         if (Pref.getInt(Pref.PREF_UID) != -1) {
@@ -72,5 +62,24 @@ public class Validator {
         return false;
     }
 
+    /**
+     * Indicates whether the specified action can be used as an intent. This
+     * method queries the package manager for installed packages that can
+     * respond to an intent with the specified action. If no suitable package is
+     * found, this method returns false.
+     * http://android-developers.blogspot.com/2009/01/can-i-use-this-intent.html
+     *
+     * @param action The Intent action to check for availability.
+     * @return True if an Intent with the specified action can be sent and
+     * responded to, false otherwise.
+     */
+    public static boolean isIntentAvailable(String action) {
+        final PackageManager packageManager = CoreApp.getInstance().getPackageManager();
+        final Intent intent = new Intent(action);
+        List<ResolveInfo> list =
+                packageManager.queryIntentActivities(intent,
+                        PackageManager.MATCH_DEFAULT_ONLY);
+        return list.size() > 0;
+    }
 
 }

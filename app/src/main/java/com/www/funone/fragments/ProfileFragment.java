@@ -1,7 +1,6 @@
 package com.www.funone.fragments;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -10,20 +9,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.www.funone.R;
-import com.www.funone.camera.CameraActivity;
+import com.www.funone.activities.MainActivity;
 import com.www.funone.adapters.ProfilePageAdapter;
+import com.www.funone.managers.CameraManager;
 import com.www.funone.view.NonSwipableViewPager;
 import com.www.funone.view.TextViewFont;
 
 
-public class ProfileFragment extends Fragment implements View.OnClickListener {
+public class ProfileFragment extends Fragment implements View.OnClickListener, MainActivity.OnMediaItemCapturedListener {
 
     private View mView;
     private TextViewFont mEditPhoto;
     private TabLayout tabLayout;
     private NonSwipableViewPager viewPager;
+    private MainActivity mainActivity;
 
 
     public ProfileFragment() {
@@ -49,6 +51,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        mainActivity = (MainActivity) getActivity();
+        mainActivity.addOnMediaItemCapturedListener(this);
         mView = inflater.inflate(R.layout.fragment_profile, container, false);
 
         setupView();
@@ -63,7 +67,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         RelativeLayout addFunOne = (RelativeLayout) mView.findViewById(R.id.btn_add_funone);
         addFunOne.setOnClickListener(this);
 
-        mView.findViewById(R.id.img_add_user_photo).setOnClickListener(this);
+        CameraManager.getInstance().launch(getActivity(), CameraManager.Action.SELECT_PHOTO, mView.findViewById(R.id.img_add_user_photo));
+
     }
 
     private void setupViewPager() {
@@ -105,13 +110,21 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mainActivity.addOnMediaItemCapturedListener(null);
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_add_funone:
                 break;
-            case R.id.img_add_user_photo:
-                //startActivity(new Intent(getActivity(), CameraActivity.class));
-                break;
         }
+    }
+
+    @Override
+    public void onPhotoTaken(String uri) {
+        Toast.makeText(getActivity(), uri, Toast.LENGTH_SHORT).show();
     }
 }
