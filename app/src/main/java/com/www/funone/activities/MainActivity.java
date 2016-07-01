@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.www.funone.R;
 import com.www.funone.ViewPagerManager;
-import com.www.funone.fragments.NativeCameraFragment;
 import com.www.funone.util.Logger;
 import com.www.funone.util.Validator;
 import com.www.funone.util.ViewUtil;
@@ -69,10 +68,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void expandToolBar() {
         setNestedToolBarScrollEnabled(true);
         mBarLayout.setExpanded(true, true);
-        setToolBarBackAndTitleVisible(true);
-        showToolBatTitle();
+        setToolBarBackAndTitleVisible(false);
         setToolBarGravity(Gravity.TOP);
-        hideSlidingTabs();
         toolBarExpanded = true;
         showSearchView();
     }

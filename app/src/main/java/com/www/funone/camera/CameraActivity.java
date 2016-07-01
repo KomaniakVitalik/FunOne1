@@ -1,15 +1,17 @@
-package com.www.funone.activities;
+package com.www.funone.camera;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
 
 import com.www.funone.R;
-import com.www.funone.fragments.NativeCameraFragment;
+import com.www.funone.activities.BaseActivity;
 import com.www.funone.util.Validator;
+import com.www.funone.util.ViewUtil;
 
 public class CameraActivity extends BaseActivity implements View.OnClickListener {
 
@@ -21,18 +23,37 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
     private ImageButton mIbGallery;
     private ImageButton mIbCapture;
     private ImageButton mIbReverseCameras;
-
+    private int CURRENT_CAMERA = 0;
     private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
-        loadFrg(NativeCameraFragment.newInstance(), R.id.content_camera);
+        hideFrontCamBtIfOnlyBackAvailable();
+        CURRENT_CAMERA = NativeCameraFragment.BACK;
+        loadFragment(NativeCameraFragment.newInstance(NativeCameraFragment.BACK), R.id.content_camera,false);
         setUpToolBar();
-
         initCameraButtons();
         addButtonClickListeners(this);
+    }
+
+    private void removeCameraFRG() {
+        getSupportFragmentManager().beginTransaction().remove(getCameraFrg()).commit();
+    }
+
+    private NativeCameraFragment getCameraFrg() {
+        return (NativeCameraFragment) getSupportFragmentManager().findFragmentById(R.id.content_camera);
+    }
+
+    private void hideFrontCamBtIfOnlyBackAvailable() {
+        if (Camera.getNumberOfCameras() == 1) {
+            Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
+            Camera.getCameraInfo(0, cameraInfo);
+            if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {
+                ViewUtil.hideView(findViewById(R.id.ib_front_camera));
+            }
+        }
     }
 
     private void initCameraButtons() {
@@ -46,6 +67,7 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
         mIbGallery.setOnClickListener(listener);
         mIbCapture.setOnClickListener(listener);
         mIbReverseCameras.setOnClickListener(listener);
+        findViewById(R.id.ib_front_camera).setOnClickListener(listener);
     }
 
     private void setUpToolBar() {
@@ -128,6 +150,20 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.ib_reverse_cameras:
                 reverseImages(v);
+                break;
+            case R.id.ib_front_camera:
+//                removeCameraFRG();
+                switch (CURRENT_CAMERA) {
+                    case NativeCameraFragment.BACK:
+                        CURRENT_CAMERA = NativeCameraFragment.FRONT;
+                        getCameraFrg().onDestroy();
+                        recreate();
+                        break;
+                    case NativeCameraFragment.FRONT:
+                        CURRENT_CAMERA = NativeCameraFragment.BACK;
+                        getCameraFrg().reverseCamera(NativeCameraFragment.BACK);
+                        break;
+                }
                 break;
         }
     }
