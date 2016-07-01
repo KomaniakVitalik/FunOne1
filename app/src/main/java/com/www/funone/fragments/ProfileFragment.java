@@ -68,6 +68,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
         RelativeLayout addFunOne = (RelativeLayout) mView.findViewById(R.id.btn_add_funone);
         addFunOne.setOnClickListener(this);
+
+        CameraManager.getInstance().launch(getActivity(), CameraManager.Action.TAKE_PHOTO, mView.findViewById(R.id.img_add_user_photo));
+
     }
 
     private void setupViewPager() {
@@ -141,5 +144,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             case R.id.btn_add_funone:
                 break;
         }
+    }
+
+    @Override
+    public void onPhotoTaken(String uri) {
+
     }
 }

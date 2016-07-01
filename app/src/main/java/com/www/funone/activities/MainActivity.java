@@ -182,6 +182,34 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (Validator.isObjectValid(mOnMediaItemCapturedListener)) {
+            switch (requestCode) {
+                case CameraManager.ACTION_TAKE_CAMERA_PHOTO:
+                    if (resultCode == RESULT_OK) {
+                        mOnMediaItemCapturedListener.onPhotoTaken(CameraManager.getInstance().getCurrentPhotoPath());
+                    }
+                    break;
+                case CameraManager.ACTION_TAKE_GALLERY_PHOTO:
+
+                    break;
+                case CameraManager.ACTION_TAKE_CAMERA_VIDEO:
+
+                    break;
+                case CameraManager.ACTION_TAKE_GALLERY_VIDEO:
+
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        CameraManager.getInstance().onPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
     public void onBackPressed() {
         if (mViewPagerManager.isFirstTab()) {
             super.onBackPressed();
@@ -217,14 +245,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
 
-    OnHideHashTagsListener gridHashTagsListener;
+    OnMediaItemCapturedListener mOnMediaItemCapturedListener;
 
-    public void addHideHashTagListener(OnHideHashTagsListener listener) {
-        this.gridHashTagsListener = listener;
+    public void addOnMediaItemCapturedListener(OnMediaItemCapturedListener listener) {
+        this.mOnMediaItemCapturedListener = listener;
     }
 
-    public interface OnHideHashTagsListener {
-        void onHide();
+    public interface OnMediaItemCapturedListener {
+        void onPhotoTaken(String string);
     }
 
     public void setSearchGridShown(boolean searchGridShown) {
