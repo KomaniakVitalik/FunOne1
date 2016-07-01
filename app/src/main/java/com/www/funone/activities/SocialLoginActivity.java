@@ -16,6 +16,7 @@ import com.www.funone.R;
 import com.www.funone.managers.AuthenticationManager;
 import com.www.funone.model.User;
 import com.www.funone.util.Logger;
+import com.www.funone.util.Pref;
 
 public class SocialLoginActivity extends BaseActivity implements View.OnClickListener, AuthenticationManager.OnSocialLogInListener {
 
@@ -146,6 +147,7 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
     public void onLogInSuccess(int socialNetworkKey, User user) {
         Logger.d(TAG, user.toString());
         startMainActivity(user);
+        Pref.setBoolean(Pref.PREF_USER_LOGGED_IN,true);
     }
 
     @Override

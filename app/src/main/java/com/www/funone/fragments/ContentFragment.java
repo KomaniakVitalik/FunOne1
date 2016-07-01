@@ -106,27 +106,25 @@ public class ContentFragment extends Fragment implements ContentRecyclerAdapter.
             mSlidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
         } else {
             mSlidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-            mSlidingUpPanelLayout.setTouchEnabled(false);
+            mSlidingUpPanelLayout.setTouchEnabled(true);
         }
     }
 
     private void startAuthorizationNeededAlert() {
-        if (!isUserLoggedIn()) {
-            new AlertDialog.Builder(getActivity())
-                    .setTitle("Authorization required")
-                    .setMessage("In order to make changes - you have to be an authorized user")
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            startSocialLogInActivity();
-                        }
-                    })
-                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    })
-                    .show();
-        }
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Authorization required")
+                .setMessage("In order to make changes - you have to be an authorized user")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        startSocialLogInActivity();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
     }
 
     private boolean isUserLoggedIn() {
@@ -146,25 +144,36 @@ public class ContentFragment extends Fragment implements ContentRecyclerAdapter.
 
     @Override
     public void onPostLiked(Post post) {
-        startAuthorizationNeededAlert();
+        if (!isUserLoggedIn()) {
+            startAuthorizationNeededAlert();
+            return;
+        }
     }
 
     @Override
     public void onOpenBestCommentsActivity(Post post) {
-        if (isUserLoggedIn()) {
-            startBestCommentsActivity(post);
+        if (!isUserLoggedIn()) {
+            startAuthorizationNeededAlert();
+            return;
         }
-        startAuthorizationNeededAlert();
+        startBestCommentsActivity(post);
     }
 
     @Override
     public void onOpenShareLayout(Post post) {
+        if (!isUserLoggedIn()) {
+            startAuthorizationNeededAlert();
+            return;
+        }
         showOrHideShareLayout();
-        startAuthorizationNeededAlert();
     }
 
     @Override
     public void onOpenALLComments(Post post) {
+        if (!isUserLoggedIn()) {
+            startAuthorizationNeededAlert();
+            return;
+        }
         getActivity().startActivity(new Intent(getActivity(), AllCommentActivity.class));
     }
 
@@ -175,7 +184,7 @@ public class ContentFragment extends Fragment implements ContentRecyclerAdapter.
 
     @Override
     public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
-        if (newState == SlidingUpPanelLayout.PanelState.EXPANDED) {
+        if (newState == SlidingUpPanelLayout.PanelState.COLLAPSED) {
             mSlidingUpPanelLayout.setTouchEnabled(false);
         }
     }
