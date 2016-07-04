@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import com.www.funone.R;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
 
     public static final int HOLD_TIME_MILLS = 2000;
 

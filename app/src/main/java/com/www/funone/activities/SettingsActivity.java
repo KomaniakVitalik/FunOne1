@@ -1,47 +1,45 @@
 package com.www.funone.activities;
 
 import android.content.res.Configuration;
-import android.media.Image;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
-import com.www.funone.CoreApp;
 import com.www.funone.R;
 import com.www.funone.util.AppSettings;
-import com.www.funone.util.Pref;
 import com.www.funone.view.TextViewFont;
 
 import java.util.Locale;
 
+import io.realm.Realm;
+
 public class SettingsActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+
+    //never null as created in DataManager if null
+    private AppSettings mAppSettings;
+    private TextViewFont mTvGoogle;
+    private TextViewFont mTvFacebook;
+    private TextViewFont mTvVk;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-
+        mAppSettings = getDataManager().getAppSettings();
         setUpToolBar();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (Pref.getString(Pref.APP_SETTINGS_KEY) != null) {
-            CoreApp.getInstance().setAppSettings(new Gson().fromJson(Pref.getString(Pref.APP_SETTINGS_KEY), AppSettings.class));
-        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Pref.setString(Pref.APP_SETTINGS_KEY, new Gson().toJson(CoreApp.getInstance().getAppSettings()));
     }
 
     private void setUpToolBar() {
@@ -67,15 +65,31 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
 
         SwitchCompat autoPlay = (SwitchCompat) findViewById(R.id.switch_auto_play);
         autoPlay.setOnCheckedChangeListener(this);
-        autoPlay.setChecked(CoreApp.getInstance().getAppSettings().isAutoPlay());
+        autoPlay.setChecked(mAppSettings.isAutoPlay());
 
         SwitchCompat notifications = (SwitchCompat) findViewById(R.id.switch_notifications);
         notifications.setOnCheckedChangeListener(this);
-        notifications.setChecked(CoreApp.getInstance().getAppSettings().isEnableNotifications());
+        notifications.setChecked(mAppSettings.isEnableNotifications());
+
+        mTvVk = (TextViewFont) findViewById(R.id.tv_vk_status);
+        mTvFacebook = (TextViewFont) findViewById(R.id.tv_facebook_status);
+        mTvGoogle = (TextViewFont) findViewById(R.id.tv_google_status);
+
+        showSocialNetworkStatus(mTvVk, mAppSettings.isVk());
+        showSocialNetworkStatus(mTvFacebook, mAppSettings.isFacebook());
+        showSocialNetworkStatus(mTvGoogle, mAppSettings.isGoogle());
     }
 
     private void setupView() {
         initView();
+    }
+
+    private void showSocialNetworkStatus(TextViewFont textViewFont, boolean connected) {
+        if (connected) {
+            textViewFont.setText(getResString(R.string.connected));
+        } else {
+            textViewFont.setText(getResString(R.string.disconnect));
+        }
     }
 
     private void changeLanguage() {
@@ -96,14 +110,19 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        switch (buttonView.getId()) {
-            case R.id.switch_auto_play:
-                CoreApp.getInstance().getAppSettings().setAutoPlay(isChecked);
-                break;
-            case R.id.switch_notifications:
-                CoreApp.getInstance().getAppSettings().setEnableNotifications(isChecked);
-                break;
-        }
+    public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked) {
+        Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                switch (buttonView.getId()) {
+                    case R.id.switch_auto_play:
+                        mAppSettings.setAutoPlay(isChecked);
+                        break;
+                    case R.id.switch_notifications:
+                        mAppSettings.setEnableNotifications(isChecked);
+                        break;
+                }
+            }
+        });
     }
 }

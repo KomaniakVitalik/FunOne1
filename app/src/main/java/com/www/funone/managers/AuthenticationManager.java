@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -42,6 +43,7 @@ import com.vk.sdk.api.VKResponse;
 import com.vk.sdk.api.model.VKApiUser;
 import com.vk.sdk.util.VKUtil;
 import com.www.funone.CoreApp;
+import com.www.funone.R;
 import com.www.funone.model.User;
 import com.www.funone.util.Logger;
 import com.www.funone.util.Validator;
@@ -97,6 +99,11 @@ public class AuthenticationManager {
      * @param socialNetwork - FACEBOOK,GOOGLE,VK
      */
     public void logInVia(AppCompatActivity activity, int socialNetwork) {
+        if (!CoreApp.getInstance().isNetworkConnected()) {
+            Toast.makeText(activity, activity.getResources().getString(R.string.err_no_internet), Toast.LENGTH_SHORT).show();
+            throwErrorMessage(R.string.err_no_internet);
+            return;
+        }
         switch (socialNetwork) {
             case FACEBOOK:
                 LoginManager.getInstance().logInWithReadPermissions(activity, Arrays.asList("email", "public_profile"));
@@ -320,6 +327,7 @@ public class AuthenticationManager {
                                                   List<VKApiUser> userList = (List<VKApiUser>) response.parsedModel;
 
                                                   if (!Validator.isListValid(userList)) {
+                                                      Logger.e(TAG, "getVkUserInfo :: parsed list of VKApiUser is not valid");
                                                       notifyLogInError(VK);
                                                       return;
                                                   }
@@ -327,6 +335,7 @@ public class AuthenticationManager {
                                                   VKApiUser user = userList.get(0);
 
                                                   if (!Validator.isObjectValid(user)) {
+                                                      Logger.e(TAG, "getVkUserInfo :: VKApiUser object is not valid");
                                                       notifyLogInError(VK);
                                                       return;
                                                   }
@@ -367,6 +376,22 @@ public class AuthenticationManager {
         return hash;
     }
 
+    /**
+     * Generates Error message from resources basing on a social network
+     *
+     * @param socialNetworkKey - social network AuthenticationManager key
+     */
+    private int generateErrorMessage(int socialNetworkKey) {
+        switch (socialNetworkKey) {
+            case AuthenticationManager.FACEBOOK:
+                return R.string.err_log_in_f;
+            case AuthenticationManager.GOOGLE:
+                return R.string.err_log_in_g;
+            case AuthenticationManager.VK:
+                return R.string.err_log_in_v;
+        }
+        return R.string.err_unknown;
+    }
 
     public void addLogInListener(OnSocialLogInListener listener) {
         this.mOnSocialLogInListener = listener;
@@ -381,15 +406,19 @@ public class AuthenticationManager {
     }
 
     private void notifyLogInError(int socialNetworkKey) {
+        throwErrorMessage(generateErrorMessage(socialNetworkKey));
+    }
+
+    private void throwErrorMessage(int message) {
         if (Validator.isObjectValid(mOnSocialLogInListener)) {
-            mOnSocialLogInListener.onLogInError(socialNetworkKey);
+            mOnSocialLogInListener.onLogInError(message);
         }
     }
 
     public interface OnSocialLogInListener {
         void onLogInSuccess(int socialNetworkKey, User user);
 
-        void onLogInError(int socialNetworkKey);
+        void onLogInError(int message);
     }
 
 

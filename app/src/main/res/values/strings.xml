@@ -55,7 +55,11 @@
     <string name="logout"><u>Log Out</u></string>
 
     <!--ERRORS-->
-    <string name="err_log_in">Error has occurred while logging in with </string>
+    <string name="err_log_in_f">Error has occurred while logging in with Facebook</string>
+    <string name="err_log_in_g">Error has occurred while logging in with Google</string>
+    <string name="err_log_in_v">Error has occurred while logging in with VK</string>
+    <string name="err_unknown">Unknown Error</string>
+    <string name="err_no_internet">No Internet connection</string>
 
     <string name="http_not_valid_response_object">Unable to get response from server. Please, try again</string>
     <string name="http_bad_request">Bad Request</string>

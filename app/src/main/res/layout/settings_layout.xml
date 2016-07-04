@@ -156,13 +156,14 @@
             app:custom_font="RobotoRegular" />
 
         <com.www.funone.view.TextViewFont
+            android:id="@+id/tv_facebook_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginBottom="@dimen/spacing_normal"
             android:layout_marginRight="@dimen/spacing_big_plus"
-            android:text="@string/connected"
+            android:text="@string/disconnect"
             android:textColor="@color/hint_gray"
             android:textSize="@dimen/text_size_micro"
             app:custom_font="RobotoRegular" />
@@ -194,6 +195,7 @@
             app:custom_font="RobotoRegular" />
 
         <com.www.funone.view.TextViewFont
+            android:id="@+id/tv_google_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -231,6 +233,7 @@
             app:custom_font="RobotoRegular" />
 
         <com.www.funone.view.TextViewFont
+            android:id="@+id/tv_vk_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

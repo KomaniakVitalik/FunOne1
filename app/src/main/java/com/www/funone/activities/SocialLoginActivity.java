@@ -22,6 +22,7 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
 
     public static final String TAG = "SocialLoginActivity";
     public static final String FONT_LUCIDA = "lucida-grande-bold.ttf";
+    private boolean mLock = false;
 
     private AuthenticationManager mAuthenticationManager;
 
@@ -81,32 +82,8 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
      */
     private void startMainActivity(User user) {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(MainActivity.ARG_USER, user);
         startActivity(intent);
         SocialLoginActivity.this.finish();
-    }
-
-    /**
-     * Shows Error toast basing on social network error response
-     *
-     * @param socialNetworkKey - social network AuthenticationManager key
-     */
-    private void showErrorToast(int socialNetworkKey) {
-        String baseBody = getResString(R.string.err_log_in);
-        switch (socialNetworkKey) {
-            case AuthenticationManager.FACEBOOK:
-                baseBody = baseBody + getResString(R.string.facebook);
-                TOAST(baseBody);
-                break;
-            case AuthenticationManager.GOOGLE:
-                baseBody = baseBody + getResString(R.string.google);
-                TOAST(baseBody);
-                break;
-            case AuthenticationManager.VK:
-                baseBody = baseBody + getResString(R.string.vk);
-                TOAST(baseBody);
-                break;
-        }
     }
 
     @Override
@@ -119,6 +96,7 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
     protected void onResume() {
         super.onResume();
         setButtonListeners(this);
+        mLock = false;
     }
 
     @Override
@@ -135,34 +113,36 @@ public class SocialLoginActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.rel_facebook_btn_wrapper:
-                mAuthenticationManager.logInVia(SocialLoginActivity.this, AuthenticationManager.FACEBOOK);
-                break;
-            case R.id.google_plus_log_in_button:
-                mAuthenticationManager.logInVia(SocialLoginActivity.this, AuthenticationManager.GOOGLE);
-                break;
-            case R.id.vk_login_btn:
-                mAuthenticationManager.logInVia(SocialLoginActivity.this, AuthenticationManager.VK);
-                break;
-            case R.id.rel_terms_of_services:
-                Toast.makeText(SocialLoginActivity.this, getResString(R.string.terms_privacy_policy)
-                        , Toast.LENGTH_SHORT).show();
-                break;
+        if (!mLock) {
+            mLock = true;
+            switch (v.getId()) {
+                case R.id.rel_facebook_btn_wrapper:
+                    mAuthenticationManager.logInVia(SocialLoginActivity.this, AuthenticationManager.FACEBOOK);
+                    break;
+                case R.id.google_plus_log_in_button:
+                    mAuthenticationManager.logInVia(SocialLoginActivity.this, AuthenticationManager.GOOGLE);
+                    break;
+                case R.id.vk_login_btn:
+                    mAuthenticationManager.logInVia(SocialLoginActivity.this, AuthenticationManager.VK);
+                    break;
+                case R.id.rel_terms_of_services:
+                    Toast.makeText(SocialLoginActivity.this, getResString(R.string.terms_privacy_policy)
+                            , Toast.LENGTH_SHORT).show();
+                    break;
+            }
         }
-        setButtonListeners(null);
     }
 
 
     @Override
     public void onLogInSuccess(int socialNetworkKey, User user) {
-        Logger.d(TAG, user.toString());
+        getDataManager().saveOrUpdateUser(user);
         startMainActivity(user);
-        Pref.setBoolean(Pref.PREF_USER_LOGGED_IN, true);
     }
 
     @Override
-    public void onLogInError(int socialNetworkKey) {
-        showErrorToast(socialNetworkKey);
+    public void onLogInError(int message) {
+        TOAST(message);
+        mLock = false;
     }
 }

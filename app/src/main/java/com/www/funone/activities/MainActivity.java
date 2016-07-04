@@ -40,16 +40,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getUserFromIntentExtras();
+        getUser();
         setContentView(R.layout.activity_main);
         mViewPagerManager = new ViewPagerManager(this);
         setUpToolBar();
         addSearchTextWatcher();
     }
 
-    private void getUserFromIntentExtras() {
+    private void getUser() {
         if (Validator.isObjectValid(getIntent().getExtras())) {
-            mCurrentUser = getIntent().getExtras().getParcelable(ARG_USER);
+            //mCurrentUser = getDataManager().getAppSettings().getUser();
         }
     }
 

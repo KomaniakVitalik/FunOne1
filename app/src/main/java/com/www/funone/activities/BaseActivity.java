@@ -149,17 +149,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public boolean isNetworkConnected() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo ni = cm.getActiveNetworkInfo();
-        if (ni == null) {
-            return false;
-        } else {
-            if (ni.isConnected()) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+        return CoreApp.getInstance().isNetworkConnected();
     }
 
     private void registerInternetChecker() {

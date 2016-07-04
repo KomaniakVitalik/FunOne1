@@ -1,14 +1,19 @@
 package com.www.funone.api;
 
+
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.www.funone.R;
+import com.www.funone.model.User;
+import com.www.funone.util.AppSettings;
 import com.www.funone.util.Logger;
+import com.www.funone.util.Pref;
 import com.www.funone.util.Validator;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 
+import io.realm.Realm;
 import retrofit2.Response;
 
 /**
@@ -25,8 +30,12 @@ public class DataManager {
     private OnResponseListener mResponseListener;
     private RetrofitRequest request;
 
+    private Realm DB = Realm.getDefaultInstance();
+
     public DataManager(RetrofitRequest retrofitRequest) {
         this.request = retrofitRequest;
+        this.DB = Realm.getDefaultInstance();
+        initAppSettings();
     }
 
     /**********************************************************************************************/
@@ -163,5 +172,77 @@ public class DataManager {
     /**************************************** Requests ********************************************/
     /**********************************************************************************************/
 
+
+    /**********************************************************************************************/
+    /************************************** Local Requests ****************************************/
+    /**********************************************************************************************/
+
+    public void initAppSettings() {
+        DB.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                if (realm.where(AppSettings.class).findFirst() == null) {
+                    realm.createObject(AppSettings.class);
+                    Logger.d(TAG, "initAppSettings :: initialized");
+                }
+
+            }
+        });
+    }
+
+    public void saveOrUpdateUser(final User user) {
+        DB.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                Logger.d(TAG, "saveOrUpdateUser :: start");
+                AppSettings appSettings = realm.where(AppSettings.class).findFirst();
+                User appUser = null;
+
+                if (Validator.isObjectValid(appSettings)) {
+                    appUser = appSettings.getUser();
+                }
+
+                if (!Validator.isObjectValid(appUser)) {
+                    appSettings.setUser(realm.copyToRealm(user));
+                } else {
+                    if (appUser.getServerId() != user.getServerId()) {
+                        Logger.d(TAG, "saveOrUpdateUser :: replacing last user with new one");
+                        appSettings.setUser(realm.copyToRealm(user));
+                    } else {
+                        Logger.d(TAG, "saveOrUpdateUser :: updating current user");
+                        appUser.setProfilePictureURL(user.getProfilePictureURL());
+                        appUser.setName(user.getName());
+                        appUser.setGoogle(user.isGoogle());
+                        appUser.setVk(user.isVk());
+                        appUser.setFacebook(user.isFacebook());
+                        appUser.setId(user.getId());
+                    }
+                }
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+                Logger.d(TAG, "saveOrUpdateUser :: success");
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+                Logger.d(TAG, "saveOrUpdateUser :: error " + error.toString());
+            }
+        });
+    }
+
+
+    public AppSettings getAppSettings() {
+        if (Validator.isObjectValid(DB.where(AppSettings.class).findFirst())) {
+            return DB.where(AppSettings.class).findFirst();
+        }
+        return new AppSettings();
+    }
+
+//
+//    public User getCurrentUser() {
+//        return getAppSettings().getUser();
+//    }
 
 }
